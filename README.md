@@ -1,3 +1,18 @@
+# LELEC2760's project
+
+For each session, the student version is generated from the teaching assistant
+version by removing parts between some pattern using `process.py`:
+
+```bash
+python process.py [SRC] [DEST]
+```
+
+For example:
+
+```bash
+python process.py Session-1.ipynb Session-1-student.ipynb
+```
+
 # Structure du projet
 
 1. Découverte de la génération de stations et util. à des localisations aléatoires :
