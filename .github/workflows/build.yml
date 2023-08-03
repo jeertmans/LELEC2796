@@ -21,7 +21,6 @@ jobs:
             -H head.tex
             --output=README.pdf
             README.md
-          args: "README.md -o README.pdf"
 
       - name: Archive code coverage results
         uses: actions/upload-artifact@v3
