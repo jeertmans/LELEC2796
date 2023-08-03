@@ -19,8 +19,8 @@ jobs:
             tlmgr install framed tcolorbox environ trimspaces listingsutf8 &&
             pandoc
             --pdf-engine=xelatex
-            --highlight-style zenburn
-            --toc
+            --highlight-style kate
+            -N
             -V colorlinks -V urlcolor=NavyBlue
             -V geometry:'top=2cm, bottom=1.5cm, left=2cm, right=2cm'
             -H head.tex
