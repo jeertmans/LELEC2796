@@ -59,9 +59,9 @@ At the end of the project, we expect you to be able:
 
 This project will be evaluated only at the very end. We ask you to produce, by groups of (x):
 
-+ a PDF report of max. x pages, about... See [tips for a good report](#tips-for-a-good-report).
++ a PDF report of max. x pages, about... See [tips for a good report](#good-report-tips).
 
-## Tips for a good report
+## Tips for a good report {#good-report-tips}
 
 Here are a few, but **very important** (to me) tips:
 
