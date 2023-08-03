@@ -9,9 +9,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - uses: docker://pandoc/core:2.9
+      - name: Convert README to PDF
+        uses: docker://pandoc/core:2.9
         with:
-          args: "README.md" -o "README.pdf"
+          args: "README.md -o README.pdf"
 
       - name: Archive code coverage results
         uses: actions/upload-artifact@v3
