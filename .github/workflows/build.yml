@@ -13,6 +13,7 @@ jobs:
         uses: docker://pandoc/latex:2.9
         with:
           args: >-  # allows you to break string into multiple lines
+            tlmgr install framed && pandoc
             --pdf-engine=xelatex
             --highlight-style zenburn
             --toc
