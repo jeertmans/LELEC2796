@@ -1,6 +1,6 @@
 # LELEC2796's project
 
-[![Latest artifacts][latest-artifacts-badge]][latest-artifacts-url]{ width=104px }
+> [*You can __download__ the latest version of the project here.*][latest-artifacts-url]
 
 In this document, you will find all important information about how to work
 with the provided files, and what you need to produce.
@@ -166,5 +166,4 @@ Useful links:
 
 ---
 
-[latest-artifacts-badge]: download.png
 [latest-artifacts-url]: https://nightly.link/jeertmans/LELEC2796/workflows/build/main/project-files.zip
