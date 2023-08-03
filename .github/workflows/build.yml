@@ -12,6 +12,7 @@ jobs:
       - name: Convert README to PDF
         uses: docker://pandoc/latex:2.9
         with:
+          entrypoint: /bin/sh
           args: >-  # allows you to break string into multiple lines
             -c "
             tlmgr update --self &&
