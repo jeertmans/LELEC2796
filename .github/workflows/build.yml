@@ -1,8 +1,8 @@
 name: Build student version
 
 on:
-  - push:
-  - workflow-dispatch:
+  push:
+  workflow-dispatch:
 
 jobs:
   build:
