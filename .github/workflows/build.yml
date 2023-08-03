@@ -16,7 +16,7 @@ jobs:
           args: >-  # allows you to break string into multiple lines
             -c "
             tlmgr update --self &&
-            tlmgr install framed &&
+            tlmgr install framed tcolorbox &&
             pandoc
             --pdf-engine=xelatex
             --highlight-style zenburn
