@@ -1,6 +1,6 @@
 # LELEC2796's project
 
-[![Latest artifacts][latest-artifacts-badge]][latest-artifacts-url]
+[![Latest artifacts][latest-artifacts-badge]][latest-artifacts-url]{ width=104px }
 
 In this document, you will find all important information about how to work
 with the provided files, and what you need to produce.
