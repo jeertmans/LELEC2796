@@ -1,4 +1,85 @@
-# LELEC2760's project
+# LELEC2796's project
+
+In this document, you will find all important information about how to work
+with the provided files, and what you need to produce.
+
+The webpage for this class is accessible here:
+[LELEC2796](https://uclouvain.be/en-cours-2023-lelec2796).
+
+The teaching assistant for this year is
+[Jérome Eertmans](https://uclouvain.be/fr/repertoires/jerome.eertmans)
+and can be reached via email at
+[jerome.eertmans@uclouvain.be](mailto:jerome.eertmans@uclouvain.be).
+
+# Prerequisites
+
+This project assumes you have some basic knowledge in Python programming,
+and that you have a working Python installation on your computer. You may also
+use the university's computer at your disposal.
+
+Installing the Python modules needed for this project can be performed
+with this one-liner from the terminal:
+
+```bash
+pip install -r requirements.txt
+```
+
+> Note that people using Anaconda would propably not need to install anything.
+
+Finally, every project session will have its dedicated Jupyter Notebook.
+You can either run Jupyter from your applications center, or using the terminal:
+
+```bash
+jupyter notebook
+```
+
+> Make sure to run this command from the directory contaning
+  this project files, or from a parent directory.
+
+This should open a new browser tab, with a project tree containing all the file. 
+
+### How to get help
+
+Should you encounter any problem with installing or running the programs,
+please go first on Google and look for your solution. Your teaching assistant
+is also there to help, but being able to search for solutions on the Internet
+is an important skill **everyone** should have ;-)
+
+
+## Learning outcomes
+
+At the end of the project, we expect you to be able:
+
++ to simulate a basic MIMO scenario and evaluate some performance
+  metrics from it;
++ to understand how to find models in the literature and criticise them;
++ ...
+
+## Deliverables
+
+This project will be evaluated only at the very end. We ask you to produce, by groups of (x):
+
++ a PDF report of max. x pages, about... See [tips for a good report](#tips-for-a-good-report).
+
+## Tips for a good report
+
+Here are a few, but **very important** (to me) tips:
+
+1. write your report in $\LaTeX$, and [Overleaf](overleaf.com) is a nice online
+  platform if you don't want to install a $\LaTeX$ compiler on your computer;
+2. export all your images in `.pdf` format, because it is a vector format and not a raster one;
+3. use the `siunitx` package for **all** your units,
+  see [this tutorial](https://www.dickimaw-books.com/latex/thesis/html/siunitx.html);
+4. label all your axes, put units in them, and write an appropriate caption.
+5. if you are motivated enough, you can do all your plots with [Pgfplots](https://fr.overleaf.com/learn/latex/Pgfplots_package) and all other schemas with [TikZ](https://fr.overleaf.com/learn/latex/TikZ_package) for a nicer integration with $\LaTeX$.
+6. and do not hesitate to take some inspiration from the literature (for the style)!
+
+You are not obliged to follow them, but doing so usually results in a better
+looking document.
+
+## For students
+
+## For teaching assistants
 
 For each session, the student version is generated from the teaching assistant
 version by removing parts between some pattern using `process.py`:
