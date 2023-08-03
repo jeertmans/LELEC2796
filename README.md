@@ -65,13 +65,13 @@ This project will be evaluated only at the very end. We ask you to produce, by g
 
 Here are a few, but **very important** (to me) tips:
 
-1. write your report in $\LaTeX$, and [Overleaf](overleaf.com) is a nice online
-  platform if you don't want to install a $\LaTeX$ compiler on your computer;
+1. write your report in $\text{\LaTeX}$, and [Overleaf](overleaf.com) is a nice online
+  platform if you don't want to install a $\text{\LaTeX}$ compiler on your computer;
 2. export all your images in `.pdf` format, because it is a vector format and not a raster one;
 3. use the `siunitx` package for **all** your units,
   see [this tutorial](https://www.dickimaw-books.com/latex/thesis/html/siunitx.html);
 4. label all your axes, put units in them, and write an appropriate caption.
-5. if you are motivated enough, you can do all your plots with [Pgfplots](https://fr.overleaf.com/learn/latex/Pgfplots_package) and all other schemas with [TikZ](https://fr.overleaf.com/learn/latex/TikZ_package) for a nicer integration with $\LaTeX$.
+5. if you are motivated enough, you can do all your plots with [Pgfplots](https://fr.overleaf.com/learn/latex/Pgfplots_package) and all other schemas with [TikZ](https://fr.overleaf.com/learn/latex/TikZ_package) for a nicer integration with $\text{\LaTeX{}}$.
 6. and do not hesitate to take some inspiration from the literature (for the style)!
 
 You are not obliged to follow them, but doing so usually results in a better
