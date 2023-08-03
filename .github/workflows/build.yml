@@ -1,6 +1,8 @@
 name: Build student version
 
-on: push
+on:
+  - push:
+  - workflow-dispatch:
 
 jobs:
   build:
@@ -39,5 +41,5 @@ jobs:
       - name: Archive code coverage results
         uses: actions/upload-artifact@v3
         with:
-          name: artifacts
+          name: project-files
           path: build

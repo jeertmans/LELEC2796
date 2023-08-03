@@ -1,5 +1,7 @@
 # LELEC2796's project
 
+[![Latest artifacts][latest-artifacts-badge]][latest-artifacts-url]
+
 In this document, you will find all important information about how to work
 with the provided files, and what you need to produce.
 
@@ -46,7 +48,6 @@ please go first on
 and look for a solution. Your teaching assistant
 is also there to help, but being able to search for solutions on the Internet
 is an important skill **everyone** should have ;-)
-
 
 ## Learning outcomes
 
@@ -161,3 +162,9 @@ Useful links:
 
 - `gr-lte` [python package](https://github.com/kit-cel/gr-lte) and [documentation](https://pdfs.semanticscholar.org/0022/2d3e686db9cdec49ccaee92015e2f1eb2ae3.pdf), a GNU Radio LTE receiver
 - `pycom` [python package](https://docs.pycom.io/) for IoT development, with hardware
+
+
+---
+
+[latest-artifacts-badge]: https://img.shields.io/badge/download-latest-green
+[latest-artifacts-url]: https://nightly.link/jeertmans/LELEC2796/workflows/build/main/project-files.zip
