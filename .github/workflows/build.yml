@@ -9,6 +9,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Make build directory
+        run: mkdir build
+
+      - name: Copy requirements.txt
+        run: cp requirements.txt build/requirements.txt
+
+      - name: Process notebooks
+        run: find -iname '*.ipynb' -printf '%P\n' | xargs -I {} python process.py "{}" "build/{}"
+
       - name: Convert README to PDF
         uses: docker://pandoc/latex:2.9
         with:
@@ -24,11 +33,11 @@ jobs:
             -V colorlinks -V urlcolor=NavyBlue
             -V geometry:'top=2cm, bottom=1.5cm, left=2cm, right=2cm'
             -H head.tex
-            --output=README.pdf
+            --output=build/README.pdf
             README.md"
 
       - name: Archive code coverage results
         uses: actions/upload-artifact@v3
         with:
           name: artifacts
-          path: "README.pdf"
+          path: build

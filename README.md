@@ -11,7 +11,7 @@ The teaching assistant for this year is
 and can be reached via email at
 [jerome.eertmans@uclouvain.be](mailto:jerome.eertmans@uclouvain.be).
 
-# Prerequisites
+## Prerequisites
 
 This project assumes you have some basic knowledge in Python programming,
 and that you have a working Python installation on your computer. You may also
