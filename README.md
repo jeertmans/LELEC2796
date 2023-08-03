@@ -166,5 +166,5 @@ Useful links:
 
 ---
 
-[latest-artifacts-badge]: https://img.shields.io/badge/download-latest-green
+[latest-artifacts-badge]: download.png
 [latest-artifacts-url]: https://nightly.link/jeertmans/LELEC2796/workflows/build/main/project-files.zip
