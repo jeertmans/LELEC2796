@@ -41,7 +41,9 @@ This should open a new browser tab, with a project tree containing all the file.
 ### How to get help
 
 Should you encounter any problem with installing or running the programs,
-please go first on Google and look for your solution. Your teaching assistant
+please go first on
+[Google](https://www.google.com/)
+and look for a solution. Your teaching assistant
 is also there to help, but being able to search for solutions on the Internet
 is an important skill **everyone** should have ;-)
 
