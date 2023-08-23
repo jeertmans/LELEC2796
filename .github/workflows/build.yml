@@ -25,7 +25,8 @@ jobs:
       - name: Process notebooks
         run: |
           pip install nbconvert
-          find -iname '*.ipynb' -printf '%P\n' | xargs -I {} 'jupyter nbconvert --clear-output --inplace "{}"; python process.py "{}" "build/{}"'
+          find -iname '*.ipynb' -printf '%P\n' | xargs -I {} jupyter nbconvert --clear-output --inplace "{}"
+          find -iname '*.ipynb' -printf '%P\n' | xargs -I {} python process.py "{}" "build/{}"
 
       - name: Convert README to PDF
         uses: docker://pandoc/latex:2.9
