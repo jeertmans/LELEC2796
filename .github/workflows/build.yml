@@ -23,7 +23,9 @@ jobs:
         run: cp requirements.txt build/requirements.txt
 
       - name: Process notebooks
-        run: find -iname '*.ipynb' -printf '%P\n' | xargs -I {} python process.py "{}" "build/{}"
+        run: |
+          pip install nbconvert
+          find -iname '*.ipynb' -printf '%P\n' | xargs -I {} 'jupyter nbconvert --clear-output --inplace "{}"; python process.py "{}" "build/{}"'
 
       - name: Convert README to PDF
         uses: docker://pandoc/latex:2.9
