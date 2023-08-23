@@ -1,5 +1,7 @@
 # LELEC2796's project
 
+[**Launch JupyterLite on your browser without installing anything!**][jupyter-lite-url]
+
 > [*You can __download__ the latest version of the project here.*][latest-artifacts-url]
 
 In this document, you will find all important information about how to work
@@ -167,3 +169,4 @@ Useful links:
 ---
 
 [latest-artifacts-url]: https://nightly.link/jeertmans/LELEC2796/workflows/build/main/project-files.zip
+[jupyter-lite-url]: https://eertmans.be/LELEC2796
