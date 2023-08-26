@@ -40,7 +40,7 @@ jupyter notebook
 > Make sure to run this command from the directory contaning
   this project files, or from a parent directory.
 
-This should open a new browser tab, with a project tree containing all the file. 
+This should open a new browser tab, with a project tree containing all the file.
 
 ### How to get help
 
@@ -117,7 +117,7 @@ python process.py Session-1.ipynb Session-1-student.ipynb
    2. Systèmes MIMO, SIMO, ...
    3. Plusieurs antennes (indépendantes) par station de base, on évalue le gain (diversité etc.)
    4. MIMO ?
-4. 
+4.
 4. En bonus :
    1. Coopérations entre antennes (plusieurs antennes déservent un utilisateur)
    2. Adaptive power control
