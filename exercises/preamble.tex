@@ -1,0 +1,263 @@
+\usepackage[left=25mm, right=25mm, top=20mm, 
+bottom=20mm]{geometry}
+% \oddsidemargin =0 mm
+% \topmargin = -10 mm
+% \footskip = 20mm
+% \textheight = 240 mm 
+% \textwidth = 160mm
+\usepackage[utf8]{inputenc}  
+\usepackage[T1]{fontenc}  
+\usepackage{lmodern}
+\usepackage[english]{babel}
+\usepackage{fancybox}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{tikz}
+\usetikzlibrary{babel}
+\usetikzlibrary{decorations.markings}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\pgfplotsset{samples=200}
+\usepackage{graphicx}
+\usepackage{caption,subcaption}
+\usepackage[titletoc]{appendix}
+\usepackage{float} % figures flottantes 
+\usepackage{here} % figures flottantes
+\usepackage{url}
+\usepackage{enumitem}
+\setlist[itemize]{label={$\bullet$}}
+%\setlist[enumerate]{noitemsep, nolistsep}
+\usepackage{xcolor}
+\usepackage[colorlinks=true]{hyperref}
+\usepackage{tabularx}
+\usepackage{minted}
+\usepackage{amsmath,amsfonts,amsthm,amsfonts,amssymb}
+\usepackage[skins,breakable]{tcolorbox}
+\usepackage{verbatim}
+\usepackage[europeanresistors,siunitx]{circuitikz}
+\usepackage{multicol}
+\usepackage{physics}
+\usepackage[outline]{contour} % glow around text
+%\usetikzlibrary{intersections}
+%\usetikzlibrary{decorations.markings}
+\usetikzlibrary{angles,quotes} % for pic
+\usetikzlibrary{bending} % for arrow head angle
+\contourlength{1.0pt}
+\usetikzlibrary{3d}
+\usetikzlibrary{shapes,angles}
+\usetikzlibrary{trees}
+\usepackage{dirtytalk}
+
+% --------------------------------------------------------------
+% Title
+% --------------------------------------------------------------
+\makeatletter
+\newcommand\maintitle[1]{
+    \quitvmode
+    \hb@xt@\linewidth{
+        \dimen@=1ex
+        \advance\dimen@-2pt
+        \leaders\hrule \@height1ex \@depth-\dimen@\hfill
+        \enskip
+        \textbf{#1}
+        \enskip
+        \leaders\hrule \@height1ex \@depth-\dimen@\hfill
+    }
+}
+\makeatother
+
+\newcommand{\makesessiontitle}{
+\begin{center}
+    \Large
+    \centering
+    \maintitle{LELEC2796 - Wireless Communications}\\
+    \textsc{\textbf{Session \sessionnumber{} - \sessiontitle{}}}\\
+    \vspace{0.1cm}
+    \normalsize
+    Teachers: Claude Oestges and Luc Vandendorpe\\ Teaching Assistant: Jérome Eertmans\\
+   \noindent\hrulefill
+\end{center}
+\thispagestyle{empty}
+}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Session \sessionnumber{}}
+\fancyhead[C]{\sessiontitle}
+\fancyhead[R]{LELEC2796}
+\fancyfoot[C]{Page \thepage}
+
+\fancypagestyle{firstpage}
+{
+   \cfoot{Page \thepage}
+}
+\fancypagestyle{nextpages}
+{
+    \lhead{Session \sessionnumber{}}
+    \chead{\sessiontitle}
+    \rhead{LELEC2796}
+    \cfoot{Page \thepage}
+}
+% --------------------------------------------------------------
+% exercise environments
+% --------------------------------------------------------------
+\newcounter{reminder}
+\newcounter{exercise}
+\newcounter{solution}
+
+\counterwithin{equation}{exercise}
+\counterwithin{equation}{solution}
+
+\definecolor{exercise_color}{RGB}{21,76,121}
+\definecolor{exercise_color_fill}{RGB}{252,248,227}
+
+\newcommand{\theexerciseref}{No reference}
+\newcounter{reminderequationcounter}
+\newcounter{exerciseequationcounter}
+\newcounter{solutionequationcounter}
+
+
+\makeatletter
+\newenvironment{reminder}
+{
+\global\chardef\dc@currentequation=\value{equation}%
+\let\c@equation\c@solutionequationcounter
+\renewcommand{\theequation}{R\arabic{equation}}%
+% comment the following line if you don't use hyperref
+\renewcommand{\theHequation}{R\arabic{equation}}%
+\refstepcounter{reminder}
+\par\vspace{5pt}\noindent
+{\Huge\textbf{Reminder}}%
+\par\vspace{10pt}\noindent\rmfamily}%
+{\par\noindent\hrulefill\vrule width10pt height2pt depth2pt\par\setcounter{equation}{\dc@currentequation}}
+\makeatother
+
+\makeatletter
+\newenvironment{exercise}[2][\texorpdfstring{\unskip}{}]
+{
+\global\chardef\dc@currentequation=\value{equation}%
+\let\c@equation\c@exerciseequationcounter
+\renewcommand{\theequation}{E\arabic{exercise}.\arabic{equation}}%
+% comment the following line if you don't use hyperref
+\renewcommand{\theHequation}{E\arabic{exercise}.\arabic{equation}}%
+\refstepcounter{exercise}
+\def\@currentlabel{{#2}}
+\label{ref-exercise-\theexercise}
+\addcontentsline{toc}{subsubsection}{{#2} #1}
+\noindent
+\flushleft
+\begin{tikzpicture}
+    \draw[very thick,exercise_color] (0,0) -- ++(0,+7.5pt)
+    -- ++(\textwidth,0) node[midway,above] {\textbf{Exercise #2: #1}}
+    -- ++(0,-7.5pt);
+\end{tikzpicture}
+\vspace{-.3cm}
+\begin{tcolorbox}[
+    blanker,
+    width=\textwidth,
+    breakable]
+}
+{   \end{tcolorbox}
+\setcounter{equation}{\dc@currentequation}
+\vspace{-.4cm}
+\flushleft
+\begin{tikzpicture}
+    \draw[very thick,exercise_color] (0,0) -- ++(0,-7.5pt)
+    -- ++(\textwidth,0)
+    -- ++(0,+7.5pt);
+\end{tikzpicture}
+}
+\makeatother
+
+\makeatletter
+\ifcsname AvecSolutions\endcsname
+\newenvironment{solution}
+{
+\global\chardef\dc@currentequation=\value{equation}%
+\let\c@equation\c@solutionequationcounter
+\renewcommand{\theequation}{S\arabic{solution}.\arabic{equation}}%
+% comment the following line if you don't use hyperref
+\renewcommand{\theHequation}{S\arabic{solution}.\arabic{equation}}%
+\refstepcounter{solution}
+\noindent
+\begin{tcolorbox}[
+    colframe=exercise_color,
+    colback=exercise_color_fill,
+    coltitle=exercise_color_fill,  
+    title=\centering\textbf{{\hypersetup{allcolors=white} Solution to exercise  \ref{ref-exercise-\theexercise}:}},
+    breakable,
+    width=\textwidth]
+}
+{   \end{tcolorbox}
+\setcounter{equation}{\dc@currentequation}
+}
+\else
+\newenvironment{solution}{\comment}{\endcomment}
+\fi
+\makeatother
+
+% --------------------------------------------------------------
+% Code environments
+% --------------------------------------------------------------
+\usemintedstyle{borland}
+\providecommand*{\listingautorefname}{Listing}
+
+\newenvironment{python}
+{\VerbatimEnvironment
+\begin{minted}[
+linenos,
+% fontfamily=courier,
+fontsize=\normalsize,
+xleftmargin=21pt,
+]{python}}
+{\end{minted}}
+
+\newcommand\py[1]{\mintinline{python}{#1}}
+
+\newcommand\la[1]{\mintinline{latex}{#1}}
+
+% Vertical line in matrices
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+% Double underline
+\def\doubleunderline#1{\underline{\underline{#1}}}
+
+
+% Multiple autoref: https://tex.stackexchange.com/a/183682
+
+\makeatletter
+
+% define a macro \Autoref to allow multiple references to be passed to \autoref
+\newcommand\Autoref[1]{\@first@ref#1,@}
+\def\@throw@dot#1.#2@{#1}% discard everything after the dot
+\def\@set@refname#1{%    % set \@refname to autoefname+s using \getrefbykeydefault
+    \edef\@tmp{\getrefbykeydefault{#1}{anchor}{}}%
+    \xdef\@tmp{\expandafter\@throw@dot\@tmp.@}%
+    \ltx@IfUndefined{\@tmp autorefnameplural}%
+         {\def\@refname{\@nameuse{\@tmp autorefname}s}}%
+         {\def\@refname{\@nameuse{\@tmp autorefnameplural}}}%
+}
+\def\@first@ref#1,#2{%
+  \ifx#2@\autoref{#1}\let\@nextref\@gobble% only one ref, revert to normal \autoref
+  \else%
+    \@set@refname{#1}%  set \@refname to autoref name
+    \@refname~\ref{#1}% add autoefname and first reference
+    \let\@nextref\@next@ref% push processing to \@next@ref
+  \fi%
+  \@nextref#2%
+}
+\def\@next@ref#1,#2{%
+   \ifx#2@ and~\ref{#1}\let\@nextref\@gobble% at end: print and+\ref and stop
+   \else, \ref{#1}% print  ,+\ref and continue
+   \fi%
+   \@nextref#2%
+}
+
+\makeatother

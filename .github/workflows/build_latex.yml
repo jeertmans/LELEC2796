@@ -1,0 +1,53 @@
+name: Build Exercice Sessions
+on:
+  push:
+    paths:
+      - "exercices/**.tex"
+  workflow_dispatch:
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./exercises
+    steps:
+    - name: Set up Git repository
+      uses: actions/checkout@v2
+    
+    - name: setup python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.10'
+    
+    - name: Prepare TeX files
+      run: |
+        find -name 'session[0-9].tex' -printf '%P\n' | xargs -I {} python process.py "{}"
+    
+    - name: Compile LaTeX document
+      uses: xu-cheng/latex-action@v2
+      with:
+        latexmk_shell_escape: true
+        extra_system_packages: "py-pygments"
+        root_file: |
+          exercises/session_1.tex
+          exercises/session_1_solution.tex
+          exercises/session_2.tex
+          exercises/session_2_solution.tex
+          exercises/session_3.tex
+          exercises/session_3_solution.tex
+          exercises/session_4.tex
+          exercises/session_4_solution.tex
+          exercises/session_5.tex
+          exercises/session_5_solution.tex
+        continue_on_error: true
+    
+    - name: Zip PDFs
+      run: zip PDFs.zip -r *.pdf
+    
+    - name: Archive exercise files
+      uses: actions/upload-artifact@v3
+      with:
+        name: exercise-files
+        path: exercises/PDF.zip

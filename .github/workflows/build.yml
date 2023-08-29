@@ -19,8 +19,9 @@ jobs:
     - name: Make build directory
       run: mkdir build
 
-    - name: Copy requirements.txt
-      run: cp requirements.txt build/requirements.txt
+    - name: Copy files
+      run: |
+        cp .pre-commit-config.yaml requirements.txt build/
 
     - name: Process notebooks
       run: |

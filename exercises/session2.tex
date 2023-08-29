@@ -1,0 +1,383 @@
+\documentclass [a4paper, 11pt] {article}
+
+\newcommand\sessiontitle{CDMA and spread spectrum techniques}
+\newcommand\sessionnumber{2}
+%\def\AvecSolutions{}  % Commenter pour ne pas afficher les solutions
+
+\input{preamble.tex}
+
+\begin{document}
+
+    \makesessiontitle
+    
+    \begin{reminder}
+
+ 
+    Spread spectrum techniques are characterized by the use of a transmission bandwidth wider than the signal bandwidth. This feature provides resistance against interference/jamming and multipath propagation. The increase of bandwidth comes from the use of \textit{spreading codes}. These codes are designed to have an autocorrelation as close as possible to a Dirac pulse and a cross-correlation as low as possible. Each user is hence attributed a unique code in order to separate users. In summary, spread spectrum techniques enable \textit{code division multiple access} (CDMA).
+ 
+    Among the different existing techniques, we will here focus on the \textit{direct sequence spectrum spreading} (DS/SS). The uplink DS/CDMA is depicted in \Autoref{fig:rake_tx,fig:rake_rx}.
+    
+    \begin{figure}[H]
+        \centering
+        \input{tikz/rake_tx}
+        \caption{DS/CDMA - Transmitters}
+        \label{fig:rake_tx}
+    \end{figure}
+    
+ 
+    In \autoref{fig:rake_tx}, it is assumed that $K$ users are communicating with a receiver. User $k$ has to transmit a sequence of symbols $I_k(n)$. This sequence is first upsampled by a factor $N_c$ and then convolved with the spreading code $a_k(m)$ associated to the user $k$. The resulting sequence is then passed into the pulse shaping filter $p(t)$ and transmitted over the channel $c_k(t)$.
+    
+ 
+    \autoref{fig:rake_rx} illustrates how a receiver can be configured to properly detect the symbols of a user $k$. It is assumed that the low pass channel $c_k(t)$ consists of $L$ multipath components and can hence be expressed as $c_k(t) = \sum_{l=0}^{L-1}\alpha_{kl}\delta(t-\tau_{kl})$. Every branch first performs a matched filtering operation, followed by sampling. The sequence is then dispreaded by means of a convolution with $a^*_k(-m)$. After down sampling, the symbols are multiplied by a complex gain $\alpha^*_{km}$ in order to compensate for the corresponding multipath component. Since the structures consist of $M \leq L$ branches, the receiver deals with $M$ paths out of $L$. As a result, the structure (called \textit{rake receiver} in the literature) has a diversity order of $M$.
+    
+    
+    \begin{figure}[H]
+        \centering
+        \input{tikz/rake_rx}
+        \caption{Structure of the rake receiver - order M.}
+        \label{fig:rake_rx}
+    \end{figure}
+    
+    \vspace{0.2 cm}
+ 
+    \textbf{Reference:} Slides lectures 4 to 6.
+
+    \end{reminder}
+    
+    \part*{Exercices}
+    
+    \begin{exercise}[Rake receiver]{1}
+
+Suppose that the power delay profile of a multipath channel is given by 
+\begin{equation}
+    P(\tau) = \frac{P_0}{\mu_\tau}e^{-\tau/\mu_\tau},
+\end{equation}
+and that DS/CDMA is employed as spread spectrum technique on this channel. 
+
+We will make the following assumptions: 
+
+\begin{itemize}
+    \item the receiver employs a two-fingers rake receiver;
+    \item each of the two channel taps is characterized by Rayleigh fading;
+    \item the delays of arrival of the two taps are given by $T_c$ and $2T_c$, where $T_c$ is the chip duration;
+    \item the transmitted symbols come from a BPSK constellation and have an energy given by $E_s$;
+    \item the noise $w(t)$ is assumed to be AWGN, zero mean, stationary, and with bilateral constant power spectral density $N_0$;
+    \item this noise is added to the signal just before the rake receiver (as in the reminder);
+    \item the spreading sequences have normalized and ideal autocorrelation and cross correlation functions. The self-interference (including intersymbol) and the multiple access interference are neglected;
+    \item and the pulse shaping filters are real, ideal and normalized. Please remember that an ideal filter satisfies the \href{https://en.wikipedia.org/wiki/Nyquist_ISI_criterion}{Nyquist ISI criterion}.
+\end{itemize} 
+
+
+{\normalfont \textbf{Questions}}
+
+\begin{enumerate}
+    \item Derive the expressions of the average and RMS delay spreads of the channel. 
+    \item Give the expression of the final signal at the output of the rake receiver. 
+    \item In this final signal, what is the distribution of the term coming from the additive noise? Derive its mean and its variance, assuming $\alpha_1$ and $\alpha_2$ are constant. 
+    \item Derive the probability density function of the sum of the squared amplitudes of the two channel taps exploited by the rake receiver.
+    \item Derive the expression of the bit error rate of the system. 
+\end{enumerate}
+
+So far, we have assumed that the rake was performing a \textit{maximum ratio combining} operation. The signals at the output of each branch of the rake were all added. Let us now assume that the receiver performs \textit{selective combining}: instead of adding the signals of the two branches, the receiver now selects the best of the two branches.
+
+\begin{enumerate}
+    \setcounter{enumi}{5}
+    \item Derive the probability density function of the maximum of the squared amplitudes of the two channel taps.
+    \item Derive the expression of the bit error rate in this case.
+    \item Plot the BER as function of the signal-to-noise ratio $E_s/N_0$ for both maximum ratio and selective combining. Compare your results.
+\end{enumerate}
+
+\newpage
+
+ 
+
+\textbf{Hints}\\
+
+The following hints and identities will be useful during the session: 
+
+\begin{itemize}
+
+    \item Integration by parts: 
+    \begin{equation}\int f(x)\frac{\partial g(x)}{\partial x} dx = \big[f(x)g(x)\big] - \int \frac{\partial f(x)}{\partial x}g(x)dx. \end{equation}
+    \item Theorem: let $N(t)$ be a real Gaussian process (with $\mathbb{E}[N(t)]$ and $\mathbb{E}[N(t)N(s)]$ being continuous functions in variables $s$ and $t$), and $f(t)$ be a real deterministic and continuous function. The random variable defined as
+	\begin{equation}
+	Z = \int_a^b N(t)f(t)dt,
+	\end{equation}
+	is a Gaussian random variable.
+    \item[-] For BPSK symbols transmitted over an AWGN channel, the bit error rate can be expressed as 
+    
+    \begin{equation}
+        P_e(\rho) = \frac{1}{2}\text{erfc}\big(\sqrt{\rho}\big),
+    \end{equation}
+    where $\rho$ the ratio of the energy per symbol divided by the noise power density.
+    
+    \item[-] Let $h$ be a Rayleigh fading channel. In that case, we have 
+    \begin{itemize}
+        \item $h \sim \mathcal{C}\mathcal{N}(0,\sigma)$,
+        \item $|h| \sim \text{Rayleigh}(\sigma)$,
+        \item and $|h|^2 \sim \exp(2\sigma^2)$ (in the beta parametrization). 
+    \end{itemize}
+    
+    \item[-] Let $X \sim \text{exp}(\beta)$ be an exponential random variable of parameter $\beta$.
+    
+    \begin{itemize} 
+    \item[-] the mean of X is equal to $\beta$
+    \item[-] the probability density function of $X$ is given by $f_X(x) = \frac{1}{\beta}e^{-x/\beta}u(x)$  
+    \item[] (where $u(x)$ is the step function)
+    \item[-] its cumulative distribution function is given by $F_X(x) = \big(1 - e^{-x/\beta}\big)u(x)$
+    \item[-] its characteristic function is given by $\phi_X(t) = (1-\beta jt)^{-1}$.
+    \end{itemize}
+    \item Reminder: the characteristic function of the sum of random variables is the product of the characteristic functions of these random variables.
+    \item[-] One identity involving the complementary error function: 
+    \begin{align}
+    &\int^{+\infty}_{0}e^{-cx}\text{erfc}(\sqrt{ax}) dx = \frac{1}{c} \bigg[1-\sqrt{\dfrac{a}{a+c}}\bigg] \; \; \text{for} \; \; a,c \in \mathbb{R}^+.
+    \end{align}
+
+\end{itemize}
+    \end{exercise}
+    
+    \begin{solution}
+        \begin{enumerate}
+    \item By using integration by parts, the mean and RMS delay spreads are given by
+    
+\begin{align}
+        \tau_M &= \frac{\int_0^\infty \tau P(\tau) d\tau}{\int_0^\infty P(\tau) d\tau} = \hdots = \mu_{\tau}, \\
+        \tau_{RMS} & = \sqrt{\frac{\int_0^\infty (\tau - \tau_M)^2 P(\tau) d\tau}{\int_0^\infty P(\tau) d\tau}} = \hdots = \mu_{\tau}.
+\end{align}
+
+\item The general expression of the signal obtained at the output of the rake receiver is provided in the slides of the lectures and is given by 
+
+\begin{align}
+    y_{k'}(n') =& I_{k'}(n') \sum_{l'=0}^{M-1}|\alpha_{k'l'}|^2 +  \underbrace{I_{k'}(n')\sum_{l'=0}^{M-1}\alpha^*_{k'l'}\sum_{l\neq l'}^{L-1}\alpha_{k'l}C_{k'k'}\big[\tau_{k'l'}-\tau_{k'l} \big]}_{\text{Self interference}}\\ 
+    &+ \underbrace{\sum_{l'=0}^{M-1} \alpha^*_{k'l'} \int_{-\infty}^{+\infty}w(t)p^*_{k'}(t-n'T-\tau_{k'l'})dt}_{\text{coming from noise}}\nonumber\\
+    &+ \text{Intersymbol interference and Multiple access interference}. \nonumber
+\end{align}
+
+The self-interference (including intersymbol) and the multiple access interference are neglected. In addition, we are here considering a two-fingers rake. Based on these assumptions, the received signal can be simplified:
+
+\begin{align}
+    y_k(n) &= \underbrace{\Big(|\alpha_1|^2 + |\alpha_2|^2 \Big)}_{\text{Attenuation factor}} I_k(n)\\
+    &+ \underbrace{\alpha^*_1 \int_{-\infty}^{+\infty} w(t)p_k^*(t-nT-\tau_{1})dt + \alpha^*_2 \int_{-\infty}^{+\infty} w(t)p_k^*(t-nT-\tau_{2})dt}_{\text{Equivalent noise}}, \nonumber
+\end{align}
+
+where $\alpha_1$ and $\alpha_2$ are the two taps of the channel and $p_k(t)$ is the concatenation of the pulse shaping filter with the spreading code. 
+
+\item By applying the theorem provided in the hints, we can observe that the two integrals are both Gaussian random variables. For fixed $\alpha_1$ and $\alpha_2$, the whole term is also Gaussian since a linear combination of Gaussian r.v. is a Gaussian r.v.
+
+For fixed $\alpha_1$ and $\alpha_2$, the mean $m$ of this term is given by 
+
+\begin{align}
+    m &= \mathbb{E}\Bigg[\alpha^*_1 \int_{-\infty}^{+\infty} w(t)p_k^*(t-nT-\tau_{1})dt + \alpha^*_2 \int_{-\infty}^{+\infty} w(t)p_k^*(t-nT-\tau_{2})dt \Bigg],\\ \intertext{(by linearity)}
+    &= \alpha^*_1 \int_{-\infty}^{+\infty} \mathbb{E}\big[w(t)\big]p_k^*(t-nT-\tau_{1})dt \\
+    &+ \alpha^*_2 \int_{-\infty}^{+\infty} \mathbb{E}\big[w(t)\big]p_k^*(t-nT-\tau_{2})dt = 0. \nonumber
+\end{align}
+
+The variance $\sigma^2$ of the term is given by
+
+\begin{align}
+\sigma^2 &= \mathbb{E}\Bigg[\bigg(\alpha^*_1 \int_{-\infty}^{+\infty} w(t)p_k^*(t-nT-\tau_{1})dt + \alpha^*_2 \int_{-\infty}^{+\infty} w(t)p_k^*(t-nT-\tau_{2})dt\bigg) \\
+& \times \bigg( \alpha^*_1 \int_{-\infty}^{+\infty} w(t')p_k^*(t'-nT-\tau_{1})dt' + \alpha^*_2 \int_{-\infty}^{+\infty} w(t')p_k^*(t'-nT-\tau_{2})dt'\bigg)^*\bigg].\nonumber
+\end{align}
+
+By distributing the terms and by interchanging the expectation operator with the integrals, we obtain
+
+\begin{align}
+\sigma^2 &= |\alpha_1|^2 \int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}\mathbb{E}\big[w(t)w^*(t')\big]p_k^*(t-nT-\tau_{1})p_k(t'-nT-\tau_{1})dtdt' \\
+&+ |\alpha_2|^2 \int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}\mathbb{E}\big[w(t)w^*(t')\big]p_k^*(t-nT-\tau_{2})p_k(t'-nT-\tau_{2})dtdt' \nonumber\\
+&+ \alpha_1^*\alpha_2 \int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}\mathbb{E}\big[w(t)w^*(t')\big]p_k^*(t-nT-\tau_{1})p_k(t'-nT-\tau_{2})dtdt' \nonumber\\
+&+ \alpha_2^*\alpha_1 \int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}\mathbb{E}\big[w(t)w^*(t')\big]p_k^*(t-nT-\tau_{2})p_k(t'-nT-\tau_{1})dtdt'\nonumber
+\end{align}
+
+By definition, the expectation $\mathbb{E}\big[w(t)w^*(t')\big]$ is the autocorrelation function of the noise, given by $N_0\delta(t-t')$. The expression of the variance becomes
+
+\begin{align}
+\sigma^2 &= |\alpha_1|^2N_0 \int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}\delta(t-t')p_k^*(t-nT-\tau_{1})p_k(t'-nT-\tau_{1})dtdt' \\
+&+ |\alpha_2|^2N_0 \int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}\delta(t-t')p_k^*(t-nT-\tau_{2})p_k(t'-nT-\tau_{2})dtdt' \nonumber\\
+&+ \alpha_1^*\alpha_2N_0 \int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}\delta(t-t')p_k^*(t-nT-\tau_{1})p_k(t'-nT-\tau_{2})dtdt' \nonumber\\
+&+ \alpha_2^*\alpha_1N_0 \int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}\delta(t-t')p_k^*(t-nT-\tau_{2})p_k(t'-nT-\tau_{1})dtdt'\nonumber
+\end{align}
+
+
+The following properties of the Delta function can be used to simplify the integrals: 
+
+\begin{align}
+    \int \delta(x-a) dx = 1, &&  f(x)\delta(x-a) = f(a)\delta(x-a).
+\end{align}
+
+We obtain 
+
+\begin{align}
+\sigma^2 &= |\alpha_1|^2N_0 \int_{-\infty}^{+\infty}p_k^2(t'-nT-\tau_{1})dt' + |\alpha_2|^2N_0 \int_{-\infty}^{+\infty}p_k^2(t'-nT-\tau_{2})dt' \\
+&+ \alpha_1^*\alpha_2N_0 \int_{-\infty}^{+\infty}p_k^*(t'-nT-\tau_{1})p_k(t'-nT-\tau_{2})dt'\nonumber\\ 
+&+ \alpha_2^*\alpha_1N_0 \int_{-\infty}^{+\infty}p_k^*(t'-nT-\tau_{2})p_k(t'-nT-\tau_{1})dt'\nonumber
+\end{align}
+
+In the above expression, one make the change of variable $t''=t'-nT$ to simply the expression: 
+
+\begin{align}
+\sigma^2 &= |\alpha_1|^2N_0 \int_{-\infty}^{+\infty}p_k^2(t''-\tau_{1})dt'' + |\alpha_2|^2N_0 \int_{-\infty}^{+\infty}p_k^2(t''-\tau_{2})dt'' \\
+&+ \alpha_1^*\alpha_2N_0 \int_{-\infty}^{+\infty}p_k^*(t''-\tau_{1})p_k(t''-\tau_{2})dt''\nonumber\\ 
+&+ \alpha_2^*\alpha_1N_0 \int_{-\infty}^{+\infty}p_k^*(t''-\tau_{2})p_k(t''-\tau_{1})dt'' \nonumber
+\end{align}
+
+The filter $p_k(t)$ is by definition the concatenation of the pulse shaping filter $p(t)$ with the spreading sequence $a_k(n)$: 
+
+\begin{equation}
+    p_k(t) = \sum_{n=-\infty}^{+\infty}a_k(n)p(t-nT_c).
+\end{equation}
+
+Let us also recall that $\tau_1 = T_c$ and $\tau_2 = 2T_c$.
+By substituting the $p_k(t)$ in the first term of the variance ($\triangleq\sigma_{11}^2$), we obtain 
+
+\begin{align}
+    \sigma_{11}^2 &=|\alpha_1|^2N_0 \int_{-\infty}^{+\infty}p_k^2(t''-\tau_{1})dt'', \\
+    &= |\alpha_1|^2N_0 \int_{-\infty}^{+\infty}\Big[ \sum_{n=-\infty}^{+\infty}a_k(n)p(t''- (n+1)T_c) \Big]^2 dt'',\\
+    &= |\alpha_1|^2N_0 \int_{-\infty}^{+\infty}\Big[ \sum_{n=-\infty}^{+\infty}a^2_k(n)p^2(t''- (n+1)T_c) \Big] dt'' \\
+    &+ 2|\alpha_1|^2N_0 \int_{-\infty}^{+\infty}\Big[\sum_{n=-\infty}^{+\infty}\sum_{n'\neq n}a_k(n)a_k(n')p(t''- (n+1)T_c) p(t''- (n'+1)T_c) dt''\Big] \nonumber,\\
+    &= |\alpha_1|^2N_0 \underbrace{\Big[ \sum_{n=-\infty}^{+\infty}a^2_k(n) \Big]}_{1} \underbrace{\int_{-\infty}^{+\infty} p^2(t''- (n+1)T_c) \Big] dt''}_{1} \\
+    &+ 2|\alpha_1|^2N_0 \underbrace{\Big[\sum_{n=-\infty}^{+\infty}\sum_{n'\neq n}a_k(n)a_k(n') \Big] \underbrace{\int_{-\infty}^{+\infty} p(t''- (n+1)T_c) p(t''- (n'+1)T_c) dt''}_{\delta(n-n')}}_{0}\nonumber,\\
+    &= |\alpha_1|^2N_0.
+\end{align}
+
+In the last equality, we have used the following properties:  
+
+\begin{itemize}
+    \item the autocorrelation of the training sequence is ideal and normalized: $\big[ \sum_{n=-\infty}^{+\infty}a^2_k(n)\big] = 1$,
+    \item the pulse shaping filter is normalized, so its energy $\int p^2(t) dt$ is equal to 1,
+    \item and the pulse shaping filter is such that $\int_{-\infty}^{+\infty} p(t''- (n+1)T_c) p(t''- (n'+1)T_c) dt'' = \delta(n-n')$.
+\end{itemize}
+
+The second term is equal to $|\alpha_2|^2N_0$ thanks to the same reasoning. 
+
+By substituting $p_k(t)$ in the third term, we obtain 
+
+\begin{align}
+&\alpha_1^*\alpha_2N_0 \int_{-\infty}^{+\infty}\sum_{n=-\infty}^{+\infty}\sum_{n'=-\infty}^{+\infty}a_k(n)a_k(n')p(t''-\tau_1-nT_c)p(t''-\tau_2-n'T_c)dt'',\\
+&= \alpha_1^*\alpha_2N_0 \sum_{n=-\infty}^{+\infty}\sum_{n'=-\infty}^{+\infty}a_k(n)a_k(n')\\
+&\hspace{1cm} \times\underbrace{\int_{-\infty}^{+\infty}p(t''-(n+1)T_c)p(t''-(n'+2)T_c)dt''}_{\delta(n-n'-1)}\nonumber,\\
+&= \alpha_1^*\alpha_2N_0 \underbrace{\sum_{n=-\infty}^{+\infty}a_k(n)a_k(n-1)}_{0},\\
+&= 0.
+\end{align}
+
+The fourth term is also equal to zero for the same reasons. 
+
+We finally have 
+\begin{equation}
+\sigma^2 = \Big(|\alpha_1|^2+|\alpha_2|^2\Big)N_0.
+\end{equation}
+
+Based on the above results, the received signal can be rewritten in a more compact manner
+
+\begin{equation}
+    y_k(n) = \Big(|\alpha_1|^2 + |\alpha_2|^2 \Big) I(n) + \tilde{w}(n),
+\end{equation}
+
+with $\tilde{w}(n) \sim \mathcal{N}\Big(0,\big(|\alpha_1|^2+|\alpha_2|^2\big)N_0\Big)$.
+
+The instantaneous signal-to-noise ratio can hence be expressed as 
+
+\begin{equation}
+    \text{SNR} = \dfrac{\Big(|\alpha_1|^2+|\alpha_2|^2\Big)^2E_s}{\Big(|\alpha_1|^2+|\alpha_2|^2\Big)N_0} = \Big(|\alpha_1|^2+|\alpha_2|^2\Big) \dfrac{E_s}{N_0}.
+\end{equation}
+
+Note that so far, the values of $\alpha_1$ and $\alpha_2$ have been assumed to be constant. As a result, the mean and the variance that have been computed are actually conditioned on $\alpha_1$ and $\alpha_2$. In the next question, we will take into account the fact that $\alpha_1$ and $\alpha_2$ are random variables. 
+
+\item Let $Z = \Big(|\alpha_1|^2+|\alpha_2|^2\Big)$ be the sum of the two squared amplitudes. Let us also define $X = |\alpha_1|^2$ and $Y = |\alpha_2|^2$. Since the fading of each tap is Rayleigh, we have 
+
+\begin{align}
+    X &\sim \exp(\beta_1), \; \; \text{where} \; \; \beta_1 = \mathbb{E}\big[X\big] = \mathbb{E}\big[|\alpha_1|^2\big] = \frac{P_0}{\mu_\tau}e^{-T_c/\mu_\tau},\\
+    Y &\sim \exp(\beta_2), \; \; \text{where} \; \; \beta_2 = \mathbb{E}\big[Y\big] = \mathbb{E}\big[|\alpha_2|^2\big] = \frac{P_0}{\mu_\tau}e^{-2T_c/\mu_\tau}.
+\end{align}
+
+Since $Z = X + Y$, the characteristic function of $Z$ is the product of the characteristic functions of $X$ and $Y$ (see hints): 
+
+\begin{align}
+\phi_Z(t) &= \phi_X(t)\phi_Y(t),\\
+&= \dfrac{1}{(1-\beta_1 jt)(1-\beta_2 jt)},\\ \intertext{(using partial fraction decomposition)}
+&= \dfrac{\beta_1/(\beta_1-\beta_2)}{(1-\beta_1 jt)} + \dfrac{\beta_2/(\beta_2-\beta_1)}{(1-\beta_2 jt)}.
+\end{align}
+
+By inverting the characteristic function of $Z$, we can obtain its probability density function, given by 
+
+\begin{equation}
+    f_Z(z)=\left\{
+                \begin{array}{ll}
+                  \dfrac{1}{\beta_1-\beta_2}\exp\Big( \dfrac{-z}{\beta_1}\Big) + \dfrac{1}{\beta_2-\beta_1}\exp\Big( \dfrac{-z}{\beta_2}\Big),\; \; \text{for} \; \; z > 0, \\
+                  \\
+                0, \; \; \text{for} \; \; z < 0.
+                \end{array}
+              \right.
+\end{equation}
+  
+\item For one realization of the channel, the instantaneous BER is given by 
+
+\begin{equation}
+    \frac{1}{2}\text{erfc}\Bigg(\sqrt{(|\alpha_1|^2+|\alpha_2|^2) \frac{E_s}{N_0}}\Bigg)
+\end{equation}
+
+This instantaneous BER must be integrated over the probability density function of $Z = |\alpha_1|^2+|\alpha_2|^2$. Using the identity provided in the hints, we obtain 
+
+\begin{align}
+    P_e &= \int_{z}\frac{1}{2}\text{erfc}\Bigg(\sqrt{\frac{E_s}{N_0}z}\Bigg)f_Z(z) dz,\\
+    &= \dfrac{1}{2}\dfrac{\beta_1}{\beta_1-\beta_2}\Bigg[ 1 - \sqrt{\dfrac{E_s/N_0}{E_s/N_0 + 1/\beta_1}} \Bigg] + \dfrac{1}{2}\dfrac{\beta_2}{\beta_2-\beta_1}\Bigg[ 1 - \sqrt{\dfrac{E_s/N_0}{E_s/N_0 + 1/\beta_2}} \Bigg].
+\end{align}
+
+\item Let $Z = \text{max}(X,Y)$, with $X = |\alpha_1|^2$ et $Y = |\alpha_2|^2$.
+
+The cumulative distribution function of $Z$ is given by
+
+\begin{align}
+    F_Z(z) &= \mathbb{P}\big[ Z \leq z\big], \\
+    &= \mathbb{P}\big[ X \leq z \; \text{and} \; Y \leq z\big], \\
+    &= \mathbb{P}\big[ X \leq z\big]\mathbb{P}\big[ Y \leq z\big], \\
+    &= \Big(1-e^{-z/\beta_1} \Big)\Big(1-e^{-z/\beta_2} \Big), \; \; \text{for} \; \; z > 0 \; \; \text{and} \; \; 0 \; \; \text{for} \; \; z < 0.
+\end{align}
+
+The probability density function of $z$ is hence given by
+
+\begin{equation}
+    f_Z(z) = \dfrac{\partial F_Z(z)}{\partial z}=\left\{
+                \begin{array}{ll}
+                 \dfrac{e^{-z/\beta_1}}{\beta_1}\Big(1-e^{-z/\beta_2} \Big) + \dfrac{e^{-z/\beta_2}}{\beta_2}\Big(1-e^{-z/\beta_1} \Big), \; \; \text{for} \; \; z > 0, \\
+                  \\
+                0, \; \; \text{for} \; \; z < 0.
+                \end{array}
+              \right.
+\end{equation}
+
+By distributing the factors, this expression can be rewritten as 
+
+\begin{equation}
+    f_Z(z) = \dfrac{\partial F_Z(z)}{\partial z}=\left\{
+                \begin{array}{ll}
+                 \dfrac{e^{-z/\beta_1}}{\beta_1} + \dfrac{e^{-z/\beta_2}}{\beta_2} - \dfrac{e^{-z/\frac{\beta_1 \beta_2}{\beta_1+\beta_2}}}{\frac{\beta_1 \beta_2}{\beta_1+\beta_2}}, \; \; \text{for} \; \; z > 0, \\
+                  \\
+                0, \; \; \text{for} \; \; z < 0.
+                \end{array}
+              \right.
+\end{equation}
+
+\item For one realization of the channel, the instantaneous BER is given by 
+
+\begin{equation}\frac{1}{2}\text{erfc}\Bigg(\sqrt{\frac{E_s}{N_0}z} \Bigg),
+\end{equation}
+
+where $z = \text{max}\big(|\alpha_1|^2,|\alpha_2|^2\big)$.This instantaneous BER must be integrated over the probability density function of z. Using the identity provided in the hints, we obtain 
+
+\begin{align}
+    P_e &= \int_{z}\frac{1}{2}\text{erfc}\Bigg(\sqrt{\frac{E_s}{N_0}z}\Bigg)f_Z(z) dz,\\
+    &= \frac{1}{2} \Bigg[1-\sqrt{\dfrac{E_s/N_0}{E_s/N_0+ 1/\beta_1}}\Bigg]\\
+    &+ \frac{1}{2} \Bigg[1-\sqrt{\dfrac{E_s/N_0}{E_s/N_0+ 1/\beta_2}}\Bigg] \nonumber\\
+    &- \frac{1}{2} \Bigg[1-\sqrt{\dfrac{E_s/N_0}{E_s/N_0+\frac{\beta_1 + \beta_2}{\beta_1\beta_2}}}\Bigg].\nonumber
+\end{align}
+
+
+
+\end{enumerate}
+
+    \end{solution}
+    
+        
+   
+
+\end{document}

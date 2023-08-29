@@ -1,0 +1,19 @@
+\begin{tikzpicture}
+    \node[draw, minimum width=1.2cm, minimum height=1cm,align=center] (mrc1) {MRC};
+    \node[below of=u1, draw, minimum width=1.2cm, minimum height=1cm, node distance=1.8cm,align=center] (mrc2) {MRC};
+    
+    \path (mrc1) -- (mrc2) node[midway] (middle) {};
+    
+    \path (middle) -- ++(4,0) node[draw, minimum width=1.2cm, minimum height=1cm,align=center] (largest) {Choose\\largest $\lambda$};
+    
+    \draw[->,thick] (mrc1.east) -- ++(1,0) |- ([yshift=+.2cm]largest.west);
+    \draw[->,thick] (mrc2.east) -- ++(1,0) |- ([yshift=-.2cm]largest.west);
+    
+    \draw[->,thick] (largest) -- ++(2,0) node[right] {$\text{max}(\lambda_1, \lambda_2)$};
+    
+    \draw[<-,thick] ([yshift=+.2cm]mrc1.west) -- ++(-1,0) node[left] {$A_1$};
+    \draw[<-,thick] ([yshift=-.2cm]mrc1.west) -- ++(-1,0) node[left] {$A_2$};
+    \draw[<-,thick] ([yshift=+.2cm]mrc2.west) -- ++(-1,0) node[left] {$A_1$};
+    \draw[<-,thick] ([yshift=-.2cm]mrc2.west) -- ++(-1,0) node[left] {$A_2$};
+    
+\end{tikzpicture}

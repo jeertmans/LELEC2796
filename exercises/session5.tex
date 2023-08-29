@@ -1,0 +1,475 @@
+\documentclass [a4paper, 11pt] {article}
+
+\newcommand\sessiontitle{Power Control Algorithms}
+\newcommand\sessionnumber{5}
+%\def\AvecSolutions{}  % Commenter pour ne pas afficher les solutions
+
+\input{preamble.tex}
+
+\begin{document}
+
+    \makesessiontitle
+    
+    \part*{Exercices}
+    
+    \begin{exercise}[Maximizing System Capacity]{1}
+    
+        We consider a deterministic $2\times 2$ MIMO system with perfect CSIT at both transmitter and receiver, where the channel matrix is
+
+        \begin{equation}
+            \mathbf{H} = \begin{bmatrix} 2.10^{-2} & 2.10^{-2} \\ -10^{-2} & 10^{-2} \end{bmatrix}.
+        \end{equation}
+        
+        The received signal is given by
+        
+        \begin{equation}\mathbf{y=Hx+w},
+        \end{equation}
+        
+        where $\mathbf{x}$ is the transmitted signal and $\mathbf{w} = \big[w_1 \; \; w_2\big]^T$ represents the AWGN noises affecting each receive antenna. The variances of these noises are, respectively, $\sigma_{1}^2$ and $\sigma_{2}^2$, with $\sigma_{1}^2 \leq \sigma_{2}^2$. 
+        
+        The total available transmit power is given by $P$, and the objective of this scenario is to maximize the total capacity of the system.
+        
+        \begin{enumerate}
+            \item Explain how to parallelize the channels. Give the numerical expressions of the (pre-)coding matrices for this scenario.
+            \item Give the general expression of the capacity if powers $P_1$ and $P_2$, with $P_1 + P_2 = P$, are allocated to the two transmit antennas.
+            \item Derive the expressions of $P_1$ and $P_2$ maximizing this capacity. Explain your reasoning.
+        \end{enumerate}
+    
+    \end{exercise}
+    
+    \begin{solution}
+        
+        \begin{enumerate}
+        \item The channel matrix $\mathbf{H}$ can be decomposed by means of a singular value decomposition: 
+        
+        \begin{equation}\mathbf{H} = \mathbf{U}\mathbf{\Lambda}\mathbf{V}^*.\end{equation}
+        
+        One possible decomposition can be computed in the following manner: 
+        
+        \begin{itemize}
+            \item[-] $\mathbf{\Lambda}$ is a diagonal matrix containing the \textit{singular values} of $\mathbf{H}$. These values can be computed by taking the square roots of the nonnegative eigenvalues of $\mathbf{H}\mathbf{H}^*$ or $\mathbf{H}^*\mathbf{H}$.
+            \item[-] $\mathbf{U}$ is a unitary rotation matrix whose columns are the eigenvectors of  $\mathbf{H}\mathbf{H}^*$.
+            \item[-] $\mathbf{V}$ is a unitary rotation matrix whose columns are the eigenvectors of  $\mathbf{H}^*\mathbf{H}$.
+        \end{itemize}
+        
+        In the case of this exercise, the singular value decomposition is given by 
+        
+        \begin{equation}
+            \mathbf{H} = \begin{bmatrix} -1 & 0 \\ 0 & 1 \end{bmatrix} \begin{bmatrix} 2\sqrt{2}. 10^{-2} & 0 \\ 0 & \sqrt{2}. 10^{-2} \end{bmatrix} \begin{bmatrix} -\sqrt{2}/2 & -\sqrt{2}/2 \\ -\sqrt{2}/2 & \sqrt{2}/2 \end{bmatrix}.
+        \end{equation}
+        
+        The information can be precoded at the transmitter by sending $\mathbf{x} = \mathbf{V}\mathbf{\tilde{x}}$, where $\mathbf{\tilde{x}}$ contains the original symbols. At the receiver, the received signal can be multiplied by $\mathbf{U}^*$. The total output signal can be rewritten,
+        
+        \begin{equation} \mathbf{\tilde{y}} = \mathbf{U}^*(\mathbf{U}\mathbf{\Lambda}\mathbf{V}^*\mathbf{x} + \mathbf{w} ) = \mathbf{U}^*\mathbf{U}\mathbf{\Lambda}\mathbf{V}^*\mathbf{V}\mathbf{\tilde{x}} + \mathbf{U}^*\mathbf{w} = \mathbf{\Lambda} \mathbf{\tilde{x}} + \mathbf{\tilde{w}}
+        \end{equation}
+        
+        One can observe that the system has been parallelized since $\mathbf{\Lambda}$ is diagonal matrix. 
+        
+
+        \textbf{Remark}
+        
+        
+        Note that in all generality, the SVD decomposition is not unique. Given a matrix $\mathbf{H} \in \mathcal{C}^{m \times n}$, any pair of unitary matrices $\mathbf{U}^{up} \in \mathcal{C}^{m \times m}$ and $\mathbf{V}^{up} \in \mathcal{C}^{n \times n}$ satisfying 
+        \begin{equation}\mathbf{U}^{up}\mathbf{\Lambda}= \mathbf{\Lambda}\mathbf{V}^{up}\end{equation}
+        
+        is also a SVD. 
+        
+        \textbf{Reference}: lecture notes of the course LINMA2380.
+
+        \item The general expression of the channel capacity is given by 
+        
+        \begin{align}
+         C &= \log\bigg(1 + \frac{P_1|\lambda_1|^2}{\sigma_1^2}\bigg) + \log\bigg(1 + \frac{P_2|\lambda_2|^2}{\sigma_2^2}\bigg), \\
+         &= \log\bigg(1 + \frac{P_1|\lambda_1|^2}{\sigma_1^2}\bigg) + \log\bigg(1 + \frac{(P-P_1)|\lambda_2|^2}{\sigma_2^2}\bigg),
+        \end{align}
+        
+        where $\lambda_1$ and $\lambda_2$ are the diagonal elements of $\mathbf{\Lambda}$.
+        
+        \item In order to obtain a maximum capacity, the values of the allocated powers must be the solution of the water filling problem. The general expression of this solution is given by 
+        
+        \begin{equation}P_i^* = \bigg(\frac{1}{\beta}-\frac{\sigma_i^2}{|\lambda_i|^2}\bigg)^+,
+        \end{equation} 
+        
+        where $\beta$ is a threshold whose value is defined such that $\sum_i P_i = P$.
+        
+        For this exercise, we have to distinguish two cases: 
+        
+        \begin{itemize}
+            \item[-] If $\frac{1}{\beta} - \frac{\sigma_2^2}{2.10^{-4}} < 0$, $P_1^* = P$ and $P_2 = 0$. In that case, the total capacity is given by 
+            
+            \begin{equation}
+                C = \log\bigg(1 + \frac{8.10^{-4}P}{\sigma_1^2}\bigg) 
+            \end{equation}
+            \item[-] If $\frac{1}{\beta} - \frac{\sigma_2^2}{2.10^{-4}} > 0$, we have 
+            
+            \begin{align}
+                P_1^* &= \frac{1}{\beta} - \frac{\sigma_1^2}{8.10^{-4}},\\
+                P_2^* &= \frac{1}{\beta} - \frac{\sigma_2^2}{2.10^{-4}}.
+            \end{align}
+            
+            Since $P_1^* + P_2^* = P$, we can deduce $\frac{1}{\beta} = \frac{P}{2} + \frac{\sigma_1^2}{16.10^{-4}} + \frac{\sigma_2^2}{4.10^{-4}}$.
+            
+            The allocated powers can be rewritten as 
+            
+            \begin{align}
+                P_1^* &= \frac{P}{2} - \frac{\sigma_1^2}{16.10^{-4}} + \frac{\sigma_2^2}{4.10^{-4}},\\
+                P_2^* &= \frac{P}{2} + \frac{\sigma_1^2}{16.10^{-4}} - \frac{\sigma_2^2}{4.10^{-4}}.
+            \end{align}
+            
+            Therefore, the capacity is given by 
+            
+            \begin{equation}
+                C = \log\bigg(1 + \frac{8.10^{-4}P_1^*}{\sigma_1^2}\bigg) + \log\bigg(1 + \frac{2.10^{-4}P_2^*}{\sigma_2^2}\bigg).
+            \end{equation}
+            
+        \end{itemize}
+        \end{enumerate}
+        
+        
+        \textbf{Complementary note:} water filling algorithm for $N$ users.
+        
+        
+        Each user $i$ (with $i = 1,\hdots,N$) is characterized by 
+        \begin{itemize}
+            \item[-] a transmit power $P_i$;
+            \item[-] a channel coefficient $h_i$;
+            \item[-] and a noise variance $\sigma_i^2$.
+        \end{itemize}
+        
+        The global optimization problem can be expressed as 
+        \begin{align}
+            \max_{P_i} \; \; & \sum_{i=1}^{N} \log\bigg(1 + \frac{P_i |h_i|^2}{\sigma_i^2} \bigg)  ,\\
+            \text{\normalfont such that} \; \;  & P_i \geq 0, \; \; \; \;  i = 1,\hdots,N \\
+            \text{and}\; \; & \sum_{i=1}^{N} P_i = P.  
+        \end{align}
+        
+        
+        This optimization problem can be rewritten in standard form (with a minimization)
+        \begin{align}
+            \min_{P_i} \; \; & -\sum_{i=1}^{N} \log\bigg(1 + \frac{P_i |h_i|^2}{\sigma_i^2} \bigg) , \\
+            \text{\normalfont such that} \; \;  & P_i \geq 0, \; \; \; \;  i = 1,\hdots,N\\
+            \text{and}\; \; & \sum_{i=1}^{N} P_i = P . 
+        \end{align}
+        
+        In order to solve this problem, one Lagrange multiplier has to be associated to each constraint:
+        \begin{align}
+            \beta_i & \; \; \text{for} \; \; P_i \geq 0, \; \; & i = 1,\hdots,N & \; \; \; \; \text{(ineq. constr. of the form} \; \; c_i(P_1,\hdots,P_N) \geq 0 \; )\\
+            \beta & \; \; \text{for} \; \; \sum_{i=1}^{N}P_i=P. & & \text{(eq. constr. of the form} \; \; c_i(P_1,\hdots,P_N) = 0 \; )
+        \end{align}
+        
+        
+        The Lagrangian of the problem can be defined as 
+        
+        \begin{equation}
+            \mathcal{L} = -\sum_{i=1}^{N} \log\bigg(1 + \frac{P_i |h_i|^2}{\sigma_i^2} \bigg) - \sum_{i=1}^{N} \beta_i P_i + \beta \Big(\sum_{i=1}^{N}P_i - P \Big). 
+        \end{equation}
+        
+        The Karush–Kuhn–Tucker (KKT) conditions for optimality are given by:
+        \begin{align}
+            \underline{\nabla}\mathcal{L} = \underline{0} \Rightarrow \frac{\partial \mathcal{L} }{\partial P_i} = 0,  \; \; \forall i & \; \; \text{(grad. of the Lagrangian equal is null)}\\
+            \beta_i (P_i) = 0, \; \; \forall i & \; \; \text{(prod. of constr and mult. is null for ineq. constr.)}\\
+            \beta_i \geq 0, \; \; \forall i & \; \; \text{(mult. must be nonnegative for ineq. constr.)}\\
+            P_i \geq 0, \; \; \forall i & \\
+            \sum_{i=1}^{N} P_i = P. & 
+        \end{align}
+        From the first condition, we obtain $\beta_i$
+        
+        \begin{equation} \frac{\partial \mathcal{L} }{\partial P_i} = 0 \Rightarrow \beta_i = \beta - \frac{1}{\frac{\sigma_i^2}{|h_i|^2} + P_i}. \end{equation}
+        
+        Then, the second condition can be rewritten as 
+        
+        \begin{equation} P_i \underbrace{\Bigg( \beta - \frac{1}{\frac{\sigma_i^2}{|h_i|^2} + P_i} \Bigg)}_{\beta_i \geq 0 } = 0. \end{equation}
+        
+        
+        From this last equation, the optimal powers can be deduced:
+        
+        \begin{equation*}
+            P_i = \begin{cases}
+              \frac{1}{\beta} - \frac{\sigma_i^2}{|h_i|^2}&\; \; \text{if} \; \; \beta \leq \frac{|h_i|^2}{\sigma_i^2}  \\
+              0 &\; \; \text{if} \; \; \beta \geq \frac{|h_i|^2}{\sigma_i^2}
+            \end{cases}  = \max \bigg(0, \frac{1}{\beta} - \frac{\sigma_i^2}{|h_i|^2} \bigg) = \bigg(\frac{1}{\beta} - \frac{\sigma_i^2}{|h_i|^2} \bigg)^+.
+        \end{equation*}
+        
+      
+    \end{solution}
+    
+    \begin{exercise}[Power Control]{2}
+    
+         In this problem, we study the uplink power control of a system with K mobiles and K base stations. Each mobile communicates with its associated base station. 
+
+The following notations are introduced: 
+\begin{itemize}
+    \item $c_k$, the base station associated to mobile $k$. In order to simplify the index numbering, it is assumed that $c_k = k$, meaning that mobile 1 communicates with base station 1, mobile 2 with station 2, ...;
+    \item $P_k$, the transmit power of mobile $k$;
+    \item $g_{mk}$, the flat fading channel from mobile $k$ to base station $m$;
+    \item $\sigma_k^2$, the variance of the noise, affecting the communication of mobile $k$ with its associated base station;
+    \item and $\gamma_k$, the target SINR level of the communication of mobile $k$ with its associated base station.
+\end{itemize}
+
+It is assumed that all communications take place over the same resources. For a given base station $c_{k^*}$, the signal coming from mobile $k^*$ is considered as the useful signal. By contrast, all the signals coming from mobiles $k\neq k^*$ are considered as interference.
+
+
+For successful communication, we require the SINR of all transmissions to be above the target levels. These requirements should of course be fulfilled by consuming a minimum amount of total power.
+
+
+
+\begin{enumerate}
+
+\item Express the corresponding optimization problem.
+
+\item Writing the transmit powers as vector $\mathbf{p} = \big[P_1 \hdots P_K\big]^T$, show that the power optimization constraints can be rewritten as: 
+
+\begin{equation}
+(\mathbf{I_K} - \mathbf{F})\mathbf{p} \geq \mathbf{b},
+\end{equation}
+
+
+where $\mathbf{F}$ is a $K \times K$ matrix and with 
+
+\begin{align}
+    \mathbf{b} =  \Bigg[\dfrac{\gamma_1\sigma_1^2}{|g_{11}|^2} \hdots \dfrac{\gamma_K\sigma_K^2}{|g_{KK}|^2}\Bigg]^T.
+\end{align}
+Identify the expression of $\mathbf{F}$.
+\end{enumerate}
+
+
+We now investigate the mathematical constraints on the physical system parameters (i.e., the channel gains and desired target levels) which enable reliable communications. 
+
+\begin{enumerate}
+\setcounter{enumi}{2}
+\item  A non-negative matrix $\mathbf{A}$ is said to be irreducible if there exists a positive integer $m$ such that $\mathbf{A}^m$ has all entries strictly positive. Show that $\mathbf{F}$ is irreducible. The number of mobiles K is at least 2.
+\end{enumerate}
+
+
+\textbf{Perron-Frobenius theorem}
+
+
+An important property of non-negative irreducible matrices comes from a corollary of the Perron-Frobenius theorem: there exists a strictly positive eigenvalue (called the Perron-Frobenius eigenvalue) which is strictly bigger than the absolute value of the other eigenvalues. Further, there is a unique right eigenvector corresponding to the Perron-Frobenius eigenvalue, which has strictly positive elements.
+
+\begin{enumerate}
+\setcounter{enumi}{3}
+\item Considering the above inequality, show that if the spectral radius of $\mathbf{F}$ is smaller than 1, the following statements are fulfilled:
+\begin{enumerate}
+    
+    \item $\lim_{k\rightarrow + \infty} \mathbf{F}^k = \mathbf{0}$,
+    \item $(\mathbf{I_K} - \mathbf{F})^{-1}$ is equal to $\sum_{k=0}^{+\infty} \mathbf{F}^k$ and has strictly positive entries,
+    \item and there exists a vector $\mathbf{p}$ satisfying the constraint of the optimization problem, and having strictly positive entries.
+\end{enumerate}
+\end{enumerate}
+
+\textbf{Geometric series of matrices}
+
+
+Let $\mathbf{T}$ be a square matrix. If the spectral radius of $\mathbf{T}$ is smaller than 1 and if $\mathbf{I} - \mathbf{T}$ is invertible, we have 
+
+\begin{equation} \sum_{k=0}^{n-1} \mathbf{T}^k = (\mathbf{I} - \mathbf{T})^{-1}(\mathbf{I} - \mathbf{T}^n). \end{equation}
+
+
+We now introduce the \textit{Distributed Power Control} (DPC) algorithm, which enables to compute the power values satisfying the SINR constraints. This algorithm is iterative and start from an initial power allocation vector $\mathbf{p[0]}$. Then, at each step $n+1$, each element of the vector is updated in the following manner 
+
+\begin{align}
+    p_i[n+1] = \dfrac{\gamma_i}{\text{SINR}_i}p_i[n]. && i=1,\hdots,K
+\end{align}
+
+
+\begin{enumerate}
+\setcounter{enumi}{4}
+\item Express this update step using the vector notations introduced above.
+\item Show that the DPC algorithm converges if the spectral radius of $\mathbf{F}$ is smaller than one. Which expression do you obtain? Could you expect this result?
+\end{enumerate}
+
+\begin{enumerate}
+\setcounter{enumi}{6}
+\item What are the advantages and disadvantages of this algorithm?
+\end{enumerate}
+        
+    \end{exercise}
+    
+    \begin{solution}
+     \begin{enumerate}
+    \item The optimization problem is given by 
+    
+    \begin{align}
+    \min_{P_i} \; \; & \sum_{i=1}^{K} P_i,  \\
+    \text{\normalfont such that} \; \;&  \text{\normalfont SINR}_i \geq \gamma_i \; \; \forall i.
+    \end{align}
+    
+    By developing the expression of the SINR, we obtain
+    
+    \begin{align}
+    \min_{P_i} \; \; & \sum_{i=1}^{K} P_i , \\
+    \text{\normalfont such that} \; \;&  \frac{|g_{ii}|^2P_i}{ \sum_{j\neq i} |g_{ij}|^2P_j + \sigma_i^2} \geq \gamma_i \; \; \forall i.
+    \end{align}
+    
+    \item The constraints can be rewritten as 
+    
+    \begin{align}
+        & |g_{ii}|^2P_i \geq \Big(\sum_{j\neq i} |g_{ij}|^2P_j + \sigma_i^2\Big) \gamma_i \; \; \forall i.\\
+        \Leftrightarrow \; \; &  P_i \geq \Bigg(\sum_{j\neq i} \frac{|g_{ij}|^2}{|g_{ii}|^2}P_j + \frac{\sigma_i^2}{|g_{ii}|^2}\Bigg) \gamma_i \; \; \forall i,\\
+        \Leftrightarrow \; \; &  P_i - \sum_{j\neq i} \frac{|g_{ij}|^2}{|g_{ii}|^2} \gamma_i P_j \geq \frac{\sigma_i^2}{|g_{ii}|^2} \gamma_i \; \; \forall i.
+    \end{align}
+    
+    By identification, this expression can be written using the vector notation 
+    
+    \begin{equation}
+    (\mathbf{I_K} - \mathbf{F})\mathbf{p} \geq \mathbf{b},
+    \end{equation}
+    
+    where the following variables are introduced
+    
+    \begin{itemize}
+        \item $\mathbf{I}_K$ is the identity matrix of size $K$;
+        \item $\mathbf{p} = \big[P_1 \hdots P_K\big]^T$ is a vector containing the transmit powers;
+        \item $\mathbf{b} =  \Bigg[\dfrac{\gamma_1\sigma_1^2}{|g_{11}|^2} \hdots \dfrac{\gamma_K\sigma_K^2}{|g_{KK}|^2}\Bigg]^T$ corresponds to the right member of the scalar inequality;
+        \item and $\mathbf{F} \in \mathbb{R}^{K \times K}$ is defined as 
+        
+        \begin{equation}
+            \big[\mathbf{F}\big]_{ij} = \begin{cases}
+             0 & \; \; \text{for} \; \; i=j, \\
+             \frac{|g_{ij}|^2}{|g_{ii}|^2} \gamma_i & \; \; \text{for} \; \; i \neq j.
+            \end{cases}
+        \end{equation}
+    \end{itemize}
+    
+    \item The proof is here quite trivial. All the non-diagonal elements of $\mathbf{F}$ are positive. All the entries of $\mathbf{A} = \mathbf{F}^2$ are therefore all positive since $\big[\mathbf{A}\big]_{ij} = \sum_p \big[\mathbf{F}\big]_{ip} \big[\mathbf{F}\big]_{pj}$ by definition of the matrix product. The same reasoning is valid for any other power of $\mathbf{F}$.
+    \item Let us recall that the spectral radius of a matrix is its highest eigenvalue (in amplitude). 
+    
+    \begin{itemize}
+        \item[(a)] Assuming the $\mathbf{F}$ can be diagonalized, the eigenvalue decomposition of $\mathbf{F}$ is given by $\mathbf{F} = \mathbf{P} \mathbf{D} \mathbf{P}^{-1}$ (where $\mathbf{D}$ is a diagonal matrix containing the eigenvalues of $\mathbf{F}$ and $\mathbf{P}$ a matrix containing the associated eigenvectors). One can observe that 
+        
+        \begin{equation} \mathbf{F}^2 = \mathbf{P}\mathbf{D}\mathbf{P}^{-1}\mathbf{P}\mathbf{D}\mathbf{P}^{-1} = \mathbf{P}\mathbf{D}^2\mathbf{P}^{-1}.
+        \end{equation}
+        
+        By generalizing for any power $n$, we obtain
+        
+        \begin{equation} \mathbf{F}^n = \mathbf{P}\mathbf{D}^n\mathbf{P}^{-1}. \end{equation}
+        
+        One can observe that $\mathbf{D}^n$ is a diagonal matrix containing the nth powers of each eigenvalue. Since we assume that the highest eigenvalue is lower than 1, all the diagonal elements of $\mathbf{D}^n$ will tend to zero when $n \rightarrow \infty$. As a result, we have 
+        
+        \begin{equation}\lim_{k\rightarrow + \infty} \mathbf{F}^k = \mathbf{P}\mathbf{0}\mathbf{P}^{-1} = \mathbf{0},
+        \end{equation}
+        
+        where $\mathbf{0}$ is the $K \times K$ matrix whose entries are all equal to zero.
+        
+        \item[(b)] Assuming that $\mathbf{I_K - F}$ is invertible, we can apply the hint related to the geometric sum of matrices in the case where $n \rightarrow \infty$
+        
+        \begin{align}
+            \sum_{k=0}^{\infty} \mathbf{F}^k = (\mathbf{I_K} - \mathbf{F})^{-1}(\mathbf{I_K} - \mathbf{0}) = (\mathbf{I_K} - \mathbf{F})^{-1}.
+        \end{align}
+        
+        \item[(c)] The constraint of the optimization problem is given by 
+        
+        \begin{equation}
+        (\mathbf{I_K} - \mathbf{F})\mathbf{p} \geq \mathbf{b},
+        \end{equation}
+        
+        One possible vector satisfying this constraint is the vector $\mathbf{p}^\star$ for which we have the strict equality 
+        
+        \begin{equation}
+        (\mathbf{I_K} - \mathbf{F})\mathbf{p}^\star = \mathbf{b}.
+        \end{equation}
+        
+        In that case, we have 
+        
+        \begin{equation}
+        \mathbf{p}^\star = (\mathbf{I_K} - \mathbf{F})^{-1}\mathbf{b} = \Bigg(\sum_{k=0}^{\infty} \mathbf{F}^k \Bigg) \mathbf{b}.
+        \end{equation}
+        
+        Since all the elements of $\mathbf{b}$ and $\sum_{k=0}^{\infty} \mathbf{F}^k$ are strictly positive, all the elements of $\mathbf{p}^\star$ are also strictly positive.
+    \end{itemize}
+    
+    \item The update step at time index $n+1$ can be expressed as 
+    
+    \begin{align}
+        p_i[n+1] &= \dfrac{\gamma_i}{\text{SINR}_i[n]}p_i[n],\\
+        &= \dfrac{\gamma_i}{\frac{|g_{ii}|^2p_i[n]}{ \sum_{j\neq i} |g_{ij}|^2p_j[n] + \sigma_i^2}}p_i[n],\\
+        &= \sum_{j\neq i} \dfrac{|g_{ij}|^2}{|g_{ii}|^2}\gamma_i p_j[n] + \frac{\sigma_i^2}{|g_{ii}|^2} \gamma_i.
+    \end{align}
+    
+    By identification with the elements of $\mathbf{F}$ and $\mathbf{b}$, the update step can be rewritten as 
+    
+    \begin{align}
+        \mathbf{p}[n+1] = \mathbf{F} \mathbf{p}[n] + \mathbf{b}.
+    \end{align}
+    
+    \item The power allocation at time steps 1,2 and 3 are given by 
+    
+    \begin{align}
+    \mathbf{p}[1] &= \mathbf{F} \mathbf{p}[0] + \mathbf{b}, \\
+    \mathbf{p}[2] &= \mathbf{F}^2 \mathbf{p}[0] + \mathbf{F} \mathbf{b} + \mathbf{b}, \\
+    \mathbf{p}[3] &= \mathbf{F}^3 \mathbf{p}[0] + \mathbf{F}^2 \mathbf{b} + \mathbf{F} \mathbf{b} +\mathbf{b}.
+    \end{align}
+    
+    By generalizing for any higher step $n$, we obtain
+    
+    \begin{align}
+    \mathbf{p}[n] = \mathbf{F}^{n} \mathbf{p}[0] + \Bigg(\sum_{k=0}^{n-1} \mathbf{F}^k \Bigg) \mathbf{b},
+    \end{align}
+    
+    When $n \rightarrow \infty$, the expression becomes 
+    
+    \begin{align}
+    \mathbf{p}[n \rightarrow \infty] = \mathbf{0} \mathbf{p}[0] + \Bigg(\sum_{k=0}^{n-1} \mathbf{F}^k \Bigg) \mathbf{b} = (\mathbf{I_K} - \mathbf{F})^{-1}\mathbf{b}.
+    \end{align}
+    
+    In the last expression, we have used the fact that the spectral radius of $\mathbf{F}$ is lower than 1. Using the results of the previous questions, we know that in that case $\lim_{k\rightarrow + \infty} \mathbf{F}^k = \mathbf{0}$ and $\sum_{k=0}^{\infty} \mathbf{F}^k = (\mathbf{I} - \mathbf{F})^{-1}$.
+    
+    
+    
+    \textbf{Optimality of the solution}
+    
+    This exercise has been structured in the following manner: 
+    
+    \begin{itemize}
+        \item[-] In questions 1 and 2, we have expressed the optimization problem corresponding to the considered scenario.
+        \item In questions 3 to 4, we have shown that (under certain conditions) there exists one vector $\mathbf{p}^\star = (\mathbf{I_K} - \mathbf{F})^{-1}\mathbf{b}$ which 
+        \begin{itemize}
+            \item[$\ast$] satisfies the SINR constraints;
+            \item[$\ast$] contains strictly positive elements only (since a negative power value would not make any physical sense).
+        \end{itemize}
+         \item In questions 5 and 6, we have introduced an algorithm (called \textit{Distributed Power Control}) that converges to this vector $\mathbf{p}^\star$.
+    \end{itemize}
+    
+    In summary, we have found a vector $\mathbf{p}^\star$ satisfying the constraint of the optimization problem, and we have presented an algorithm that converges to this vector $\mathbf{p}^\star$. 
+    
+    Now comes the question: is this vector an optimal solution of the minimization problem?
+    
+    The answer is actually yes. It can be justified using the fact that the optimization problem derived in question 2 is linear. 
+    
+    Let us consider a general linear optimization problem with
+    \begin{itemize}
+        \item a decision variable $\mathbf{x} \in \mathbf{R}^n$;
+        \item some equality and inequality constraints.
+    \end{itemize}
+    
+    
+    
+    \newpage
+        
+    
+    
+    From linear optimization theory, we know that if an optimal solution exists for this problem, this solution $\mathbf{x}^\star$ will be such that $n$ (linearly independent) constraints will be active at that point. The term \textit{active} means that a general inequality constraint $g(\mathbf{x}) \geq 0$ will satisfy $g(\mathbf{x}^\star) = 0$ with a strict equality at $\mathbf{x} = \mathbf{x}^\star$.
+    
+    In the framework of this exercise, we had a linear optimization problem with a decision variable $\mathbf{p} \in \mathbb{R}^K$. The number of constraints was actually strictly equal to $K$ (since we had one target SINR per mobile). All the constraints of this problem must therefore be active at the optimal solution $\mathbf{p}^\star$. This implies that 
+    
+    \begin{equation}(\mathbf{I_K} - \mathbf{F})\mathbf{p}^\star = \mathbf{b} \; \; \Leftrightarrow \mathbf{p}^\star = (\mathbf{I_K} - \mathbf{F})^{-1} \mathbf{b}.
+    \end{equation}
+    
+    
+
+    \item Advantages 
+    
+    \begin{itemize}
+        \item[-] The algorithm is \textit{distributed} since all the mobiles can perform their update steps independently. Each mobile only needs to know the current value of the SINR of its associated receiver, and does not require any other information. Nothing has to be centralized. 
+        \item[-] The algorithm is simple in terms of complexity. Each update step only requires one multiplication and one division per mobile
+        \item[-] Provided that $\rho(\mathbf{F})<1$, the algorithm converges to the optimum solution.
+    \end{itemize}
+    Disadvantages
+    \begin{itemize}
+        \item The SINR value is actually measured at the base station receiving the signal. This value has to be sent back to the mobile so that it can update its power. 
+        \item The condition $\rho(\mathbf{F})<1$ can not necessarily be guaranteed, especially if the channel conditions are bad or if the target SINR values are to high. If $\rho(\mathbf{F})$ happens to be greater than 1, the algorithm will not converge. In that case, the network operator will have to lower the target SINR in order to have a spectral radius smaller than 1.
+    \end{itemize}
+\end{enumerate}
+    \end{solution}
+   
+\end{document}

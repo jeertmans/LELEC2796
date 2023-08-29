@@ -8,3 +8,17 @@ __pycache__/
 _output/
 
 .jupyterlite.doit.db
+
+*.aux
+
+*.fdb_latexmk
+
+*.fls
+
+*.log
+
+*.out
+
+*.pdf
+
+exercises/*_solution.tex

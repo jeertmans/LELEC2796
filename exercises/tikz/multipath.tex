@@ -1,0 +1,26 @@
+\tikzstyle{smallantenna}=[antenna,scale=.5]
+\tikzstyle{cluster}=[starburst, fill=black!30, draw, minimum width=2cm, minimum height=1.7cm]
+\tikzstyle{angle}[1.5cm]=[<->,draw,thick,dash dot,angle radius=#1,angle eccentricity=1.2]
+\tikzset{basic multipath/.pic={
+\node[smallantenna] (tx1) {};
+\node[below of=tx1,smallantenna, node distance=2cm] (tx2) {};
+
+\path (tx1) -- ++(5,0) node[smallantenna] (tx3) {};
+
+\node[smallantenna] (tx4) at (tx3 |- tx2) {};
+
+\path (tx1) -- (tx2) node[pos=.3,right] (west) {};
+\path (tx3) -- (tx4) node[pos=.3,left] (east) {};
+
+\path (tx1.north) -- (tx3.north) node[midway, cluster, above] (north) {};
+\path (tx2.south) -- (tx4.south) node[midway, cluster, below] (south) {};
+
+\draw[very thick] (west.center) -- (north);
+\draw[very thick] (west.center) -- (south);
+\draw[thick,dashed] (west.center) -- ++(2,0) coordinate (mid);
+
+\draw[very thick] (east.center) -- (north);
+\draw[very thick] (east.center) -- (south);
+\draw[thick,dashed] (east.center) -- ++(-2,0);
+
+}}

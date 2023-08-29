@@ -1,0 +1,43 @@
+\begin{tikzpicture}
+    \node[antenna] (tx1) {};
+    \node[below of=tx1,antenna, node distance=3cm] (tx2) {};
+    
+    \node[left of=tx1,anchor=south east,align=center] {Antenna 0\\$s_0, -s_1^*$}; 
+    \node[left of=tx2,anchor=south east,align=center] {Antenna 1\\$s_1, s_0^*$};
+    
+    \node[right of=tx1, draw, minimum width=1.2cm, minimum height=1cm, node distance=6cm,align=center] (comb) {Combiner};
+    \node[right of=tx2, draw, minimum width=1.2cm, minimum height=1cm, node distance=6cm,align=center] (est) {Channel\\estimator};
+    
+    \path (tx1) -- (tx2) node[midway] (middle) {};
+    
+    \path (middle) -- ++(2,0) node[antenna,align=center] (rx) {};
+    
+    \node[right of=rx,node distance=2cm,circle,draw] (plus) {$+$};
+    
+    \node[right of=plus,node distance=2cm,minimum width=1.2cm, minimum height=4cm, node distance=5cm,align=center,draw] (ml) {Maximum\\likelihood\\detector};
+    
+    \draw[->,thick] (rx) -- (plus);
+    \draw[<-,thick] (plus) -- ++(0,+1) node[above] {$n_0$};
+    \draw[<-,thick] (plus) -- ++(0,-1) node[below] {$n_1$};
+    
+    \draw[->,thick] (plus.east) -- ++(0.3,0) |- (comb.west);
+    \draw[->,thick] (plus.east) -- ++(0.3,0) |- (est.west);
+    
+    \draw[->,thick] ([xshift=-.2cm]est.north) -- ([xshift=-.2cm]comb.south) node[midway,left] {$h_0$};
+    \draw[->,thick] ([xshift=+.2cm]est.north) -- ([xshift=+.2cm]comb.south) node[midway,right] {$h_1$};
+    \draw[->,thick] ([yshift=-.2cm]est.east) -- ([yshift=-.2cm]est.east -| ml.west) node[midway,below] {$h_0$};
+    \draw[->,thick] ([yshift=+.2cm]est.east) -- ([yshift=+.2cm]est.east -| ml.west) node[midway,above] {$h_1$};
+    
+    \draw[->,thick] ([yshift=-.2cm]comb.east) -- ([yshift=-.2cm]comb.east -| ml.west);
+    \draw[->,thick] ([yshift=+.2cm]comb.east) -- ([yshift=+.2cm]comb.east -| ml.west);
+    
+    \draw[->,thick] (est.center -| ml.east) -- ++(1,0) node[right] {$\hat{s}_0$};
+    \draw[->,thick] (comb.center -| ml.east) -- ++(1,0) node[right] {$\hat{s}_1$};
+    
+    \draw[->,dashed,black!60](tx1) -- (rx) node[pos=.3,text=black] {$h_0=\alpha_0 e^{j \theta_0}$};
+    
+    \draw[->,dashed,black!60] (tx2) -- (rx) node[pos=.6,text=black] {$h_1=\alpha_1 e^{j \theta_1}$};
+    
+    
+    
+\end{tikzpicture}

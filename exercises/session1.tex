@@ -1,0 +1,443 @@
+\documentclass [a4paper, 11pt] {article}
+
+\newcommand\sessiontitle{Mobile propagation channels}
+\newcommand\sessionnumber{1}
+%\def\AvecSolutions{}  % Commenter pour ne pas afficher les solutions
+
+\input{preamble.tex}
+
+\begin{document}
+
+    \makesessiontitle
+    
+    \begin{reminder}
+    
+    In wireless communications, signals are usually affected by three factors: 
+
+    \begin{enumerate}
+        \item the path loss, modeling the decrease of power density of electromagnetic waves when they are propagating through the air. This factor includes ground reflection and can be defined as
+        \begin{equation}
+            L = 10n\log_{10}(r),
+        \end{equation}
+        where $L$ is the path loss in \si{\decibel}, $r$ is the distance between transmitting and receiving antennas, and $n \in [<1,4]$ is the path loss exponent;
+        \item the shadowing, modeling the attenuation due to large scale obstacles (hills, buildings, etc.). Measurement campaigns have shown that this factor typically follows a log-normal distribution;
+        \item and the fading, accounting for the fact that signals can propagate to a receiver via various paths. If the receiver is moving, the copies of a signal coming from different paths change over time and add non-coherently. In the case where only the receiver is moving, two channel models have to be distinguished:
+        
+        \begin{itemize}
+            \item \underline{\textit{Flat fading channel}}: the $n_s$ paths constituting the channel arrive during the same symbol interval (see \autoref{fig:flat}). In that case, the channel can be represented in the baseband as
+            \begin{equation}
+                h(t) = \sum_{k=0}^{n_s - 1} \alpha_k e^{j\phi_k}e^{-j\omega_0 \tau_k}
+                e^{-j\Delta \omega_k t},
+            \end{equation}
+        
+        where $\Delta \omega_k$ is the Doppler shift defined as 
+        $\Delta \omega_k = \dfrac{2\pi}{\lambda}\cos(\gamma - \phi_{r,k})\sin(\theta_{r,k})v$.
+        
+        The following symbols are introduced for each path:
+        
+        \begin{minipage}[t]{0.45\textwidth}
+            \begin{itemize}
+            \item[-] $\alpha_k$ is the amplitude attenuation;
+            \item[-] $\phi_k$ is the phase shift;
+            \item[-] $\omega_0$ is the carrier frequency;
+            \item[-] $\tau_k$ is the propagation delay;
+            \item[-] and $\gamma$ is the direction of motion in the horizontal plane.
+        \end{itemize}
+        \end{minipage}
+        \hfill
+        \begin{minipage}[t]{0.45\textwidth}
+            \begin{itemize}
+            \item[-] $\lambda$ is the wavelength;
+            \item[-] $v$ is the speed of the receiver;
+            \item[-] $\phi_{r,k}$ is the azimuth angle of arrival;
+            \item[-] $\theta_{r,k}$ is the elevation angle of arrival;
+        \end{itemize}
+        \end{minipage}\\
+        
+        Assuming that $h(t)$ is wide sense stationary, the time correlation of the channel $R_h(\Delta t)$ can be defined as: 
+        
+                \begin{equation}
+                R_h(\Delta t) = \mathbb{E}\Big[h(t)h^*(t+\Delta t)\Big].
+                \end{equation}
+        
+        The Doppler spectrum $S(\nu)$ of the channel is defined as the Fourier transform of the time correlation defined here above. 
+        
+        \end{itemize}
+        \end{enumerate}
+        
+        \begin{itemize}
+        
+        \item[-] \underline{\textit{Frequency selective channel}}: the $n_s$ paths constituting the channel arrive during distinct symbol intervals (see \autoref{fig:freq}). In that case, the delay dimension $\tau$ is introduced: 
+        
+        \begin{equation}
+        h(t,\tau) = \sum_{k=0}^{n_s - 1}h_k(t)\delta(\tau-\tau_k),
+        \end{equation}
+        
+        where $h_k(t)$ is defined as 
+        
+        \begin{equation}
+        h_k(t) = \sum_m \alpha_{k,m} e^{j\phi_{k,m}}e^{-j\omega_0 \tau_{k,m}}e^{-j\Delta \omega_{k,m} t}.
+        \end{equation}
+    
+    
+    
+    Note that we also have $h(t) = \int_{0}^{\tau_{\text{max}}} h(t,\tau)d\tau$. 
+    
+    \input{tikz/fading_channels}
+    
+    
+    
+    In the case of a frequency selective channel, several transfer functions can be defined by means of the Fourier transform (see \autoref{fig:transfer_functions}).
+    
+    \input{tikz/transfer_functions}
+     
+    Using these 4 transfer functions, one can also introduce bi-dimensional correlation functions: 
+    
+    \begin{minipage}{0.45\textwidth}
+    \begin{itemize}
+        \item[-] $R_h(t,t+\Delta t, \tau, \tau + \Delta \tau)$
+        \item[-] $R_H(t,t+\Delta t, f, f + \Delta f)$
+    \end{itemize}
+    \end{minipage}
+        \hfill
+    \begin{minipage}{0.45\textwidth}
+    \begin{itemize}
+        \item[-] $R_S(\nu,\nu+\Delta \nu, \tau, \tau + \Delta \tau)$
+        \item[-] $R_B(\nu,\nu+\Delta \nu, f, f + \Delta f)$
+    \end{itemize}
+    \end{minipage}
+    
+    \medskip
+    
+    
+    where one has, for instance, 
+    \begin{equation}R_h(t,t+\Delta t, \tau, \tau + \Delta \tau) = \mathbb{E}\Big[h(t,\tau)h^*(t+\Delta t,\tau + \Delta \tau)\Big].
+    \end{equation}
+    
+    
+    
+    One particular case is the wide sense stationary uncorrelated scattering (WSSUS) channel for which the above definition reduces to: 
+    
+        \begin{equation}
+        R_S(\nu,\nu+\Delta \nu, \tau, \tau + \Delta \tau) = C_S(\nu, \tau) \delta(\Delta \nu) \delta(\Delta \tau),
+        \end{equation}
+    
+    
+    where $C_S(\nu, \tau)$ is the scattering function. 
+    
+    
+    For this type of channel, the Doppler spectrum can be rewritten as $S(\nu) = \int C_S(\nu, \tau) d\tau$. 
+    
+    
+    Another concept that can be introduced for WSSUS channels is the power delay profile
+    
+    \begin{equation}
+    P(\tau) = \mathbb{E}\Big[|h(t,\tau)|^2\Big].
+    \end{equation}
+    
+    Based on this notion, one can define the average and RMS delay-spread: 
+    
+    \begin{align}
+    \tau_M = \frac{\int_0^\infty \tau P(\tau) d\tau}{\int_0^\infty P(\tau) d\tau}, && \tau_{RMS} = \sqrt{\frac{\int_0^\infty (\tau - \tau_M)^2 P(\tau) d\tau}{\int_0^\infty P(\tau) d\tau}}.
+    \end{align}
+    
+    \end{itemize}
+    \end{reminder}
+    \pagebreak
+    
+    \part*{Exercices}
+    
+    \begin{exercise}[Downlink transmission]{1}
+        We consider the downlink of a cellular transmission at 1875 MHz. At the mobile terminal, three multipath clusters (i.e., three groups of multipath) are considered. Each cluster is Rayleigh fading and characterized by 
+
+        \begin{itemize}
+            \item[-] an average azimuth angle of arrival, given by $\phi_1 = \pi/4$, $\phi_2 = \pi/6$ and $\phi_3 = -\pi/4$ (0 is the direction of motion towards the base station),
+            \item[-] an elevation angle given by $\theta = \pi/2$,
+            \item[-] a relative average power of $P_1 = \SI{0}{\decibel}$, $P_2 = \SI{-2}{\decibel}$ and $P_3 = \SI{-4}{\decibel}$, respectively.
+        \end{itemize}
+        
+        
+        It is assumed that the three clusters are fading independently of one another.
+        
+        \begin{enumerate}
+        %\item Why are the clusters characterized by a fading distribution? 
+        \item Provide a mathematical description of the narrowband channel $h(t)$ and of the temporal auto-correlation of the channel $R(\Delta t)$. Assume that all paths within a cluster are arriving with the same angle.
+        \item Compute the absolute value of the temporal auto-correlation of the channel for temporal separations of \SI{40}{\milli\second}, \SI{80}{\milli\second}, \SI{120}{\milli\second}, \SI{200}{\milli\second}, \SI{320}{\milli\second}, and \SI{400}{\milli\second}. Assume that the pedestrian terminal is moving at \SI{1}{\meter\per\second} towards the base station.
+        \item Based on the above, estimate the approximate coherence time of the channel. Is the considered scenario slow fading or a fast fading if the transmission bandwidth is of \SI{20}{\mega\hertz}?
+        \item Represent (in a graph) the Doppler spectrum of the considered channel. Sketch what one would obtain if the paths within each cluster do not exactly arrive with the same azimuth angle $\phi_k$ but rather in a range $\big[\phi_k-d\phi \; ; \; \phi_k+d\phi \big]$.
+        \item The clusters are characterized by absolute times-of-arrival given by $\tau_1 = \SI{1}{\micro\second}$, $\tau_2 = \SI{1.2}{\micro\second}$ and $\tau_3 = \SI{3}{\micro\second}$. Is the channel frequency selective for a bandwidth of \SI{20}{\mega\hertz}? Justify your answer.
+        \end{enumerate}
+    \end{exercise}
+    
+    \begin{solution}
+        The answers to the questions are detailed here below.
+
+    
+        \begin{enumerate}
+        \item The expression of the narrowband channel is given by 
+        
+        \begin{align}
+         h(t) &=  \sum_{k=1}^{3} \Big[ \sum_m \alpha_{k,m} e^{j\phi_{k,m}}e^{-j\omega_0 \tau_{k,m}}e^{-j\Delta \omega_{k} t} \Big] \\
+         & = \sum_{k=1}^{3} e^{-j\Delta \omega_{k} t} \Big[ \sum_m \alpha_{k,m} e^{j\phi_{k,m}} e^{-j\omega_0 \tau_{k,m}}  \Big]
+        \end{align}
+        
+        The last equality comes from the fact that the paths within a cluster arrive with the same angle. 
+        
+        Note: since we are considering the expression of the narrowband channel $h(t)$, it is assumed the three clusters arrive during the same symbol interval. If it is not the case (because the symbol interval is too short), one has to consider the frequency selective channel model: 
+        
+        \begin{equation} h(t,\tau) =  \sum_{k=1}^{3} \Big[ \sum_m \alpha_{k,m} e^{j\phi_{k,m}}e^{-j\omega_0 \tau_{k,m}}e^{-j\Delta \omega_{k} t}\Big] \delta(\tau-\tau_k).
+        \end{equation}
+        
+        Note that the link between the narrowband and the frequency selective models is given by 
+        
+        \begin{align}
+            h(t) &= \int_{0}^{\tau_{\text{max}}} h(t,\tau)d\tau, \\
+             &= \sum_{k=1}^{3} \Big[ \sum_m \alpha_{k,m} e^{j\phi_{k,m}}e^{-j\omega_0 \tau_{k,m}}e^{-j\Delta \omega_{k} t}\Big] \underbrace{\int_{0}^{\tau_{\text{max}}} \delta(\tau-\tau_k)d\tau}_{1}, \\
+             &= \sum_{k=1}^{3} \Big[ \sum_m \alpha_{k,m} e^{j\phi_{k,m}}e^{-j\omega_0 \tau_{k,m}}e^{-j\Delta \omega_{k} t}\Big].
+        \end{align}
+        
+        The expression of the temporal correlation function is given by 
+        
+        \begin{align}
+             R_h(\Delta t) =& \mathbb{E}\Big[h(t)h^*(t+\Delta t)\Big],\\
+             =& \mathbb{E}\Bigg[\Big( \sum_{k=1}^{3} e^{-j\Delta \omega_{k} t} \sum_m \alpha_{k,m} e^{j\phi_{k,m}} e^{-j\omega_0 \tau_{k,m}} \Big) \\
+             &\hspace{1cm}\times \Big( \sum_{k'=1}^{3} e^{j\Delta \omega_{k'} (t+\Delta t)} \sum_{m'} \alpha_{k',m'} e^{-j\phi_{k',m'}} e^{j\omega_0 \tau_{k',m'}} \Big) \Bigg] \nonumber,\\
+             =& \mathbb{E}\Bigg[ \sum_{k = k'=1}^{3} e^{j\Delta \omega_{k} \Delta t} \sum_{m = m'} | \alpha_{k,m}|^2 \Bigg]\\
+             &\hspace{1cm}+ \underbrace{\mathbb{E}\Bigg[\sum_{k\neq k'} \sum_{m} \sum_{m'} \hdots \Bigg] }_{0}
+              + \underbrace{\mathbb{E}\Bigg[ \sum_{k = k'} \sum_{m} \sum_{m'\neq m} \hdots\Bigg] }_{0}.\nonumber
+        \end{align}
+        
+        This above expectation involves four sums over $k,k',m$ and $m'$. One has to distinguish three types of terms: 
+        
+        \begin{itemize}
+            \item the terms involving two identical paths from a same cluster (for which $k=k'$ and $m'=m$). The expectation of these terms will be nonzero.
+            \item the terms involving paths from different clusters (for which $k\neq k'$). The expectation of these terms will be equal to zero since the paths contained in different clusters are independent. 
+            \item the terms involving paths coming from the same cluster ($k=k'$) but that are different ($m\neq m'$). The paths are independent and add non-coherently. In that case these terms can be reexpressed as 
+            
+            \begin{align}
+             &\sum_{k = k'} \sum_{m} \sum_{m'\neq m} \mathbb{E}\Bigg[\Big(  e^{-j\Delta \omega_{k} t} \alpha_{k,m} e^{j\phi_{k,m}} e^{-j\omega_0 \tau_{k,m}} \Big)\\
+             &\hspace{3cm} \times\Big(  e^{j\Delta \omega_{k'} (t+\Delta t)} \alpha_{k',m'} e^{-j\phi_{k',m'}} e^{j\omega_0 \tau_{k',m'}} \Big) \Bigg] \nonumber,\\
+             =&\sum_{k = k'} \mathbb{E}\Bigg[ \underbrace{\sum_{m} \sum_{m'\neq m} \alpha_{k,m} e^{j\phi_{k,m}}  \alpha_{k',m'} e^{-j\phi_{k',m'}}}_{\sim \mathcal{CN}(0,\sigma_k^2)}  \Bigg] \\
+             &\hspace{1cm}\times e^{-j\Delta \omega_{k} t}  e^{-j\omega_0 \tau_{k,m}} e^{j\Delta \omega_{k'} (t+\Delta t)} e^{j\omega_0 \tau_{k',m'}} = 0\nonumber.
+            \end{align}
+        The fading is here assumed to be Rayleigh. The expression underlined above is therefore complex normal and zero mean. 
+        
+        \end{itemize}
+        
+        We finally have 
+        \begin{align}
+        R_h(\Delta t) &= \mathbb{E}\Bigg[ \sum_{k = k'=1}^{3} e^{j\Delta \omega_{k} \Delta t} \sum_{m = m'} | \alpha_{k,m}|^2 \Bigg], \\
+        &=  \sum_{k = k'=1}^{3} e^{j\Delta \omega_{k} \Delta t} \underbrace{\mathbb{E}\Bigg[\sum_{m = m'} | \alpha_{k,m}|^2 \Bigg]}_{P_k},\\
+        &= P_1 e^{j\Delta \omega_{1} \Delta t} + P_2 e^{j\Delta \omega_{2} \Delta t} +P_3 e^{j\Delta \omega_{3} \Delta t}.
+        \end{align}
+        
+        \item In the above expression, we have $P_1 = 1$, $P_2 = 0.631$ and $P_3 = 0.3981$ in linear scale. 
+        
+        The Doppler shift is by definition given by 
+        
+    \begin{equation}\Delta \omega_k = \dfrac{2\pi}{\lambda}\cos(\gamma - \phi_{k})\sin(\theta)v,
+    \end{equation}
+        
+        where $\lambda = (\num{3e8})/(\num{1.875e9})\;\si{\meter}$, $v = \SI{1}{\meter\per\second}$, $\gamma = 0$ (since the pedestrian is moving towards the base station which is angle 0 by convention). The other angles $\theta$ and $\phi_k$ are given in the exercise statement. We obtain $\Delta \omega_1 = \Delta \omega_3 = \SI{27.768}{\radian\per\second}$ and  $\Delta \omega_2 = \SI{34.01}{\radian\per\second}$. 
+        
+        By replacing the values of $\Delta t$, $\Delta \omega_k$ and $P_k$ in the correlation function, one obtains the following numerical values. 
+        
+        \medskip
+        
+        \begin{minipage}{0.45\textwidth}
+                \begin{itemize}
+                \item[] $|R(\Delta t = \SI{40}{\milli\second})| = 2.0156$
+                \item[] $|R(\Delta t = \SI{80}{\milli\second})| = 1.9753$
+                \item[] $|R(\Delta t = \SI{120}{\milli\second})| = 1.909$
+        
+            \end{itemize}
+            \end{minipage}
+            \hfill
+            \begin{minipage}{0.45\textwidth}
+                \begin{itemize}
+                \item[] $|R(\Delta t = \SI{200}{\milli\second})| = 1.7065$
+                \item[] $|R(\Delta t = \SI{320}{\milli\second})| = 1.2741$
+                \item[] $|R(\Delta t = \SI{400}{\milli\second})| = 0.9712$
+            \end{itemize}
+            \end{minipage}
+        
+        \medskip
+        
+        One can observe that these absolute values of correlation can be greater than 1. To be more rigorous, one has to work with the relative correlation coefficient given by 
+        
+        \begin{equation}
+             \rho(\Delta t) \triangleq \dfrac{R(\Delta t)}{R(0)} = \dfrac{R(\Delta t)}{P_1 + P_2 + P_3}.
+        \end{equation}
+        \item The coherence time of the channel is the time interval during which the channel does not change significantly. A good manner to define this coherence time is to define it as the time $T_c$ for which one roughly has $\rho(T_c) \simeq 0.7$. 
+        
+        We have $\rho(\Delta t = \SI{200}{\milli\second}) = 0.84$ and $\rho(\Delta t = \SI{320}{\milli\second}) = 0.63$. The coherence time is hence around $T_c \sim \SI{250}{\milli\second}$.
+        
+        The symbol duration is given by $T=\frac{1}{B} = \frac{1}{20 \; 10^6} = \SI{5e-8}{\second}$.
+        
+        We have $T_c \gg T$ so we are in a slow fading scenario. 
+        
+        
+        \item The Doppler spectrum is by definition the Fourier transform of the channel temporal correlation. Let us recall that the Fourier transform of a complex exponential $e^{jat}$ is given by a delta function $2\pi \delta(\omega - a)$. Using this property, we have 
+        
+        \begin{equation}
+            S(\omega) =2\pi \bigg(P_1 \delta(\omega - \Delta \omega_1) + P_2 \delta(\omega - \Delta \omega_2) + P_3 \delta(\omega - \Delta \omega_3) \bigg).
+        \end{equation}
+        
+        The corresponding spectrum is sketched in \autoref{fig:doppler_spectra}.
+        
+        \input{tikz/doppler_sprectra}
+        
+        Let us now assume that the azimuth angles of arrival are not exactly equal to $\phi_k$ for the paths within a cluster, but that they are in a range $\big[\phi_k-d\phi \; ; \; \phi_k+d\phi \big]$. The resulting Doppler spectrum will no longer consist of perfect delta functions, but rather of values concentrated in intervals $\big[\Delta \omega_k-d \Delta \omega_k  \; ; \; \Delta \omega_k+d \Delta \omega_k  \big]$.
+        
+        \item In order to determine if the channel is frequency selective, one can compare the delay spreads with the symbol period. To compute the delay spreads, one first has to compute the power delay profile of the channel:
+        
+        \begin{align}
+            P(\tau) &\triangleq \mathbb{E}\Big[|h(t,\tau)|^2\Big], \\
+            &= \mathbb{E}\Big[h(t,\tau)h^*(t,\tau)\Big],\\
+            &= \mathbb{E}\Bigg[\Big( \sum_{k=1}^{3} \Big[ \sum_m \alpha_{k,m} e^{j\phi_{k,m}}e^{-j\omega_0 \tau_{k,m}}e^{-j\Delta \omega_{k} t}\Big] \delta(\tau-\tau_k) \Big) \\
+            &\hspace{1cm}\times\Big( \sum_{k'=1}^{3} \Big[ \sum_{m'} \alpha_{k',m'} e^{-j\phi_{k',m'}}e^{j\omega_0 \tau_{k',m'}}e^{j\Delta \omega_{k'} t}\Big] \delta(\tau-\tau_{k'})\Big) \Bigg]\nonumber.
+        \end{align}
+        
+        The above expression involves again four sums over $k,k',m$ and $m'$. Only the expectations of the terms with $k=k'$ and $m=m'$ will be nonzero. The resulting power delay profile is hence given by
+        
+        \begin{align}
+            P(\tau) &= \sum_{k =k'=1}^{3} \underbrace{\mathbb{E}\Bigg[\sum_{m = m'} | \alpha_{k,m}|^2 \Bigg]}_{P_k} \delta(\tau-\tau_{k}),\\
+            &= P_1\delta(\tau-\tau_{1}) + P_2\delta(\tau-\tau_{2}) + P_3\delta(\tau-\tau_{3}).
+        \end{align}
+        
+        The mean delay spread can be expressed as 
+        
+        \begin{align}
+            \tau_M &\triangleq \frac{\int_0^\infty \tau P(\tau) d\tau}{\int_0^\infty P(\tau) d\tau}, \\
+            &= \dfrac{P_1\int_0^\infty \tau_1 \delta(\tau-\tau_{1}) d\tau + P_2\int_0^\infty \tau_2 \delta(\tau-\tau_{2}) d\tau + P_3\int_0^\infty \tau_3 \delta(\tau-\tau_{3}) d\tau }{P_1\int_0^\infty \delta(\tau-\tau_{1}) d\tau + P_2\int_0^\infty \delta(\tau-\tau_{2}) d\tau + P_3\int_0^\infty \delta(\tau-\tau_{3}) d\tau },\\
+            &= \dfrac{P_1\tau_1 + P_2\tau_2 + P_3\tau_3}{P_1+P_2+P_3}.
+        \end{align}
+        
+        In the above equation, we have used the following properties of the delta function:
+        
+        \begin{align}
+            \int \delta(x-a) dx = 1, &&  f(x)\delta(x-a) = f(a)\delta(x-a).
+        \end{align}
+        
+        
+        The RMS delay spread is given by 
+        
+        \begin{align}
+        \tau_{RMS} &\triangleq \sqrt{\dfrac{\int_0^\infty (\tau - \tau_M)^2 P(\tau) d\tau}{\int_0^\infty P(\tau) d\tau}},\\
+        &= \sqrt{\dfrac{(\tau_1 - \tau_M)^2P_1 + (\tau_2 - \tau_M)^2P_2 + (\tau_3 - \tau_M)^2P_3}{P_1+P_2+P_3}}.
+        \end{align}
+        \end{enumerate}
+        
+        
+        By replacing by numerical values, we obtain $\tau_M = \SI{1.45e-6}{\second}$ and $\tau_{\text{RMS}} = \SI{7.7e-7}{\second}$. 
+        
+        For a bandwidth of \SI{20}{\mega\hertz}, the symbol duration is given by $T=\frac{1}{B} = \frac{1}{\num{20e6}} = \SI{5e-8}{\second}$. 
+        
+        We can deduce that the channel is frequency selective in this case.
+    \end{solution}
+    
+    \pagebreak
+   \begin{exercise}[WSSUS channel]{2}
+       This exercise is dedicated to the properties of the scattering function $C_S(\nu, \tau)$.
+
+        \begin{enumerate}
+            \item Considering a WSSUS channel, prove the following identity: $P(\tau) = \int_{\nu} C_S(\nu, \tau) d\nu$
+        \end{enumerate}
+        
+        Application: a WSSUS channel has a scattering function is given by
+        
+        \begin{equation}
+             C_S(\nu, \tau) =\left\{
+                        \begin{array}{ll}
+                          \frac{1}{f_m}\big(1-(\nu/f_m)^2\big), \; 0 \leq \tau \leq \SI{100}{\milli\second}, \; \;  0 \leq |\nu| \leq f_m\\
+                          0, \; \text{otherwise}, \\
+                        \end{array}
+                      \right.
+        \end{equation}
+        
+        
+        with $f_m = \SI{10}{\hertz}$.
+        
+        \begin{enumerate}
+            \setcounter{enumi}{1}
+            \item Compute the power delay profile.
+            \item Compute the mean delay and the RMS delay spread.
+            \item Compute the Doppler power spectrum.
+        \end{enumerate} 
+   \end{exercise}
+   
+   \begin{solution}
+       \begin{enumerate}
+            \item The bi-dimensional correlation of the channel impulse response can be expressed as 
+            \begin{align}
+                R_h(t,t',\tau,\tau') &\triangleq \mathbb{E}\Big[h(t,\tau)h^*(t',\tau')\Big],\\
+                &= f(t,t',\tau)\delta(\tau'-\tau),\\
+                &= f(\underbrace{t'-t}_{\Delta t},\tau)\delta(\underbrace{\tau'-\tau}_{\Delta \tau }).
+            \end{align}
+            
+            In the above equations, the first equality comes from the \textit{uncorrelated scattering} (US) assumption. The second equality comes from the \textit{wide sense stationary} (WSS) assumption. Note that by definition of the power delay profile, we have 
+            
+            \begin{equation*}
+                \lim_{\Delta t \rightarrow 0} f(\Delta t, \tau) = P(\tau)
+            \end{equation*}
+            
+            The bi-dimensional channel impulse response can be expressed as the inverse Fourier transform of the delay Doppler-spread function 
+            
+            \begin{equation}
+                h(t,\tau) =\int S(\nu,\tau)e^{j\nu t}d\nu.
+            \end{equation}
+            
+            Using the above equality, the correlation of the channel impulse response can be rewritten as 
+            
+            \begin{align}
+                R_h(t,t',\tau,\tau') &= \mathbb{E}\Bigg[ \bigg(\int_{\nu} S(\nu,\tau)e^{j\nu t}d\nu \bigg)  \bigg( \int_{\nu'} S(\nu',\tau')e^{j\nu' t'}d\nu'\bigg)^*  \Bigg], \\ \intertext{(By interchanging the expectation operator with the integrals)}
+                &= \int_{\nu}\int_{\nu'} \mathbb{E}\Big[S(\nu,\tau)S^*(\nu',\tau') \Big]e^{j\nu t}e^{-j\nu' t'}d\nu'd\nu, \\ \intertext{(By definition of the correlation)}
+                &= \int_{\nu}\int_{\nu'} R_S(\nu, \nu', \tau, \tau') e^{j\nu t}e^{-j\nu' t'}d\nu'd\nu, \\ \intertext{(By expanding the expression of $ R_S(\nu, \nu', \tau, \tau')$ for WSSUS channels)}
+                &= \int_{\nu}\int_{\nu'} C_S(\nu,\tau) \delta(\nu' - \nu) \delta(\tau' - \tau) e^{j\nu t}e^{-j\nu' t'}d\nu'd\nu,\\ \intertext{(Rearranging the terms)}
+                &= \Bigg[ \int_{\nu} C_S(\nu,\tau) e^{j\nu t} \underbrace{\Big[\int_{\nu'} \delta(\nu' - \nu)  e^{-j\nu' t'} d\nu'}_{e^{-j\nu t'}} \Big] d\nu \Bigg]\delta(\tau' - \tau),\\\intertext{(Using the Fourier transform of the delta function)}
+                &= \underbrace{\Bigg[\int_{\nu} C_S(\nu,\tau) e^{j\nu (t-t')}d\nu \Bigg]}_{f(\Delta t,\tau)} \delta(\tau' - \tau).
+            \end{align}
+            
+            By identification, we can observe that 
+            
+            \begin{equation}f(\Delta t,\tau) = \int_{\nu} C_S(\nu,\tau) e^{-j\nu \Delta t }d\nu.
+            \end{equation}
+            
+            When $\Delta t \rightarrow 0$, we obtain the expected result
+            
+            \begin{equation}P(\tau) = \int_{\nu} C_S(\nu, \tau) d\nu.
+            \end{equation}
+            
+            \item By applying the above equality to the provided expression of $C_S(\nu, \tau)$, we obtain
+            
+            \begin{equation}
+                P(\tau) = \int_{\nu} C_S(\nu, \tau) d\nu = \left\{
+                        \begin{array}{ll}
+                          4/3, \; 0 \leq \tau \leq \SI{100}{\milli\second}\\
+                          0, \; \text{otherwise}. \\
+                        \end{array}
+                      \right.
+            \end{equation}
+            \item By using the definition of the delay spreads with the power delay profile obtained in the previous question, we obtain
+            
+            \begin{align}
+                \tau_M &= \frac{\int_0^\infty \tau P(\tau) d\tau}{\int_0^\infty P(\tau) d\tau} = \SI{0.05}{\second}, \\
+                \tau_{RMS} & = \sqrt{\frac{\int_0^\infty (\tau - \tau_M)^2 P(\tau) d\tau}{\int_0^\infty P(\tau) d\tau}} = \SI{0.029}{\second}.
+            \end{align}
+            
+            \item The Doppler spectrum is given by 
+            
+            \[
+            S(\nu) = \int C_S(\nu, \tau) d\tau = \left\{
+                        \begin{array}{ll}
+                         \frac{1}{10 f_m}\big(1-(\nu/f_m)^2\big), \; 0 \leq |\nu| \leq f_m\\
+                          0, \; \text{otherwise}. \\
+                        \end{array}
+                        \right\}
+            \]
+        \end{enumerate} 
+   \end{solution}
+        
+   
+
+\end{document}
