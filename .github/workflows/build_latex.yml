@@ -44,11 +44,8 @@ jobs:
           session5_solution.tex
         continue_on_error: true
     
-    - name: Zip PDFs
-      run: zip PDFs.zip -r *.pdf
-    
     - name: Archive exercise files
       uses: actions/upload-artifact@v3
       with:
         name: exercise-files
-        path: exercises/PDFs.zip
+        path: exercises/*.pdf
