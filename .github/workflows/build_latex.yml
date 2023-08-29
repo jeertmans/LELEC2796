@@ -51,4 +51,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: exercise-files
-        path: exercises/PDF.zip
+        path: exercises/PDFs.zip
