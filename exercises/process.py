@@ -21,6 +21,8 @@ def main():
     statement = copy.copy(content)
     solution = copy.copy(content)
 
+    print(f"Processing {args.infile}...")
+
     for i, line in enumerate(content):
         if r"\def\AvecSolutions{}" in line:
             if line.startswith("%"):

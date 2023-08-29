@@ -2,7 +2,7 @@ name: Build Exercice Sessions
 on:
   push:
     paths:
-      - "exercices/**.tex"
+      - "./exercices/**.tex"
   workflow_dispatch:
 
 
@@ -31,16 +31,16 @@ jobs:
         latexmk_shell_escape: true
         extra_system_packages: "py-pygments"
         root_file: |
-          exercises/session_1.tex
-          exercises/session_1_solution.tex
-          exercises/session_2.tex
-          exercises/session_2_solution.tex
-          exercises/session_3.tex
-          exercises/session_3_solution.tex
-          exercises/session_4.tex
-          exercises/session_4_solution.tex
-          exercises/session_5.tex
-          exercises/session_5_solution.tex
+          exercises/session1.tex
+          exercises/session1_solution.tex
+          exercises/session2.tex
+          exercises/session2_solution.tex
+          exercises/session3.tex
+          exercises/session3_solution.tex
+          exercises/session4.tex
+          exercises/session4_solution.tex
+          exercises/session5.tex
+          exercises/session5_solution.tex
         continue_on_error: true
     
     - name: Zip PDFs
