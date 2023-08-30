@@ -14,6 +14,7 @@ class Obstacles(ABC):
     """
     Abstract class for a list of obstacles.
     """
+
     @abstractmethod
     def contains(self, points: Points) -> np.ndarray:
         """
@@ -38,16 +39,18 @@ class CircularObstacles(Obstacles):
     """
     Circular cell.
     """
-    
+
     radii: float = np.array([0.1])
-    centers: np.ndarray = np.array([0., 0.])
+    centers: np.ndarray = np.array([0.0, 0.0])
 
     def __post_init__(self):
         self.radii = np.asarray(self.radii).reshape(-1)
         self.centers = np.asarray(self.centers).reshape(-1, 2)
 
     @classmethod
-    def generate(cls, n: int, radius: float = 0.1, radius_std: float = 0.0) -> CircularObstacles:
+    def generate(
+        cls, n: int, radius: float = 0.1, radius_std: float = 0.0
+    ) -> CircularObstacles:
         """
         Generate n, possibly-overlapping, obstacles,
         using a random uniform distribution for
@@ -55,7 +58,7 @@ class CircularObstacles(Obstacles):
         """
         rng = np.random.default_rng()
         radii = rng.normal(loc=radius, scale=radius_std, size=n)
-        centers = np.random.rand(n, 2) - np.array([.5, .5])
+        centers = np.random.rand(n, 2) - np.array([0.5, 0.5])
 
         return CircularObstacles(radii=radii, centers=centers)
 
@@ -70,17 +73,14 @@ class CircularObstacles(Obstacles):
         cond = d2 <= r2
 
         return np.any(cond, axis=1)
-    
+
     def draw(self, ax: Optional[plt.Axes] = None, *args, fill=False, **kwargs):
         if ax is None:
             ax = plt.gca()
 
         artists = []
         for radius, center in zip(self.radii, self.centers):
-            
-            circle = plt.Circle(
-                center.flatten(), radius, *args, fill=fill, **kwargs
-            )
+            circle = plt.Circle(center.flatten(), radius, *args, fill=fill, **kwargs)
             artists.append(ax.add_patch(circle))
-            
+
         return artists

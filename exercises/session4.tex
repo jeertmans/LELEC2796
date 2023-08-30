@@ -9,28 +9,28 @@
 \begin{document}
 
     \makesessiontitle
-    
+
     \begin{reminder}
- 
+
     Note: this reminder only contains the concepts that are strictly necessary for this exercise session.
 
 \begin{itemize}
-    \item[-] Joint, transmit and receive power spectra: 
+    \item[-] Joint, transmit and receive power spectra:
     \begin{align}
     A(\mathbf{\Omega_t},\mathbf{\Omega_r}) &= \mathbb{E}\Big[ \Big|\int h(t,\tau, \mathbf{\Omega_t},\mathbf{\Omega_r}) d\tau  \Big|^2 \Big] = \int P_h(\tau, \mathbf{\Omega_t},\mathbf{\Omega_r}) d\tau,\\
     A_t(\mathbf{\Omega_t}) &= \mathbb{E}\Big[ \Big|\int \int h(t,\tau, \mathbf{\Omega_t},\mathbf{\Omega_r}) d\tau d\mathbf{\Omega_r}  \Big|^2 \Big] = \int \int P_h(\tau, \mathbf{\Omega_t},\mathbf{\Omega_r}) d\tau d\mathbf{\Omega_r},\\
     A_r(\mathbf{\Omega_r}) &= \mathbb{E}\Big[ \Big|\int \int h(t,\tau, \mathbf{\Omega_t},\mathbf{\Omega_r}) d\tau d\mathbf{\Omega_t}  \Big|^2 \Big] = \int \int P_h(\tau, \mathbf{\Omega_t},\mathbf{\Omega_r}) d\tau d\mathbf{\Omega_t}.
     \end{align}
-    \item Mean and RMS angle-spreads: 
+    \item Mean and RMS angle-spreads:
     \begin{align}
-    \mathbf{\Omega_{t,M}} = \frac{\int \mathbf{\Omega_t} A_t(\mathbf{\Omega_t}) d\mathbf{\Omega_t}}{\int A_t(\mathbf{\Omega_t}) d\mathbf{\Omega_t}}, 
+    \mathbf{\Omega_{t,M}} = \frac{\int \mathbf{\Omega_t} A_t(\mathbf{\Omega_t}) d\mathbf{\Omega_t}}{\int A_t(\mathbf{\Omega_t}) d\mathbf{\Omega_t}},
     && \Omega_{t,\text{RMS}} = \sqrt{\frac{\int \big| \big| \mathbf{\Omega_t} - \mathbf{\Omega_{t,M}} \big| \big|^2 A_t(\mathbf{\Omega_t}) d\mathbf{\Omega_t}}{\int A_t(\mathbf{\Omega_t}) d\mathbf{\Omega_t}}}.
     \end{align}
-    \item[-] Channel matrix of a MIMO system: 
+    \item[-] Channel matrix of a MIMO system:
     \begin{align}
         \mathbf{H}(t,\tau) = \Big[h_{nm}(t,\tau) \Big]_{1<n<n_r,1<m<n_t },
     \end{align}
-    where $n_r$ and $n_t$ are, respectively, the number of receive and transmit antennas. 
+    where $n_r$ and $n_t$ are, respectively, the number of receive and transmit antennas.
     \item[-] For a narrowband balanced antenna array with plane wave incidence, any matrix element $h_{nm}(\cdot)$ can be expressed as function of $h_{11}(\cdot)$:
     \begin{equation}
     h_{nm}(t,\tau) = \int \int h_{11}(t,\tau,\Omega_t,\Omega_r) e^{-j\mathbf{k_r^T}(\mathbf{\Omega_r}).(\mathbf{p^{(n)}_r} - \mathbf{p^{(1)}_r})} e^{-j\mathbf{k_t^T}(\mathbf{\Omega_t}).(\mathbf{p^{(m)}_t} - \mathbf{p^{(1)}_t)}} d\mathbf{\Omega_t} d\mathbf{\Omega_r}.
@@ -39,26 +39,26 @@
     \begin{equation}
     e^{-jk_t^T(\mathbf{\Omega_t}).(\mathbf{p^{(m)}_t} - \mathbf{p^{(1)}_t})} = e^{-j(m-1)\phi_t(\Theta_t)},
     \end{equation}
-    where $\phi_t(\Theta_t) = 2\pi(d_t/\lambda)\sin(\Theta_t)$ and $d_t = ||\mathbf{p_t^{(m)}} - \mathbf{p_t^{(m-1)}}||$. 
-    \item The spatial correlation matrix $\mathbf{R} \in \mathbb{R}^{n_tn_r \times n_tn_r}$ is defined as 
+    where $\phi_t(\Theta_t) = 2\pi(d_t/\lambda)\sin(\Theta_t)$ and $d_t = ||\mathbf{p_t^{(m)}} - \mathbf{p_t^{(m-1)}}||$.
+    \item The spatial correlation matrix $\mathbf{R} \in \mathbb{R}^{n_tn_r \times n_tn_r}$ is defined as
     \begin{align}
         \mathbf{R} = \mathbb{E}\Big[\text{vec}(\mathbf{H}^H)\text{vec}(\mathbf{H}^H)^H \Big].
     \end{align}
-    \item Under Rayleigh fading, the \textit{effective} diversity order of a MIMO system (taking into account spatial correlations) is defined as 
+    \item Under Rayleigh fading, the \textit{effective} diversity order of a MIMO system (taking into account spatial correlations) is defined as
     \begin{align}
         N_{\text{div}} = \Bigg[ \frac{\text{Tr}\{\mathbf{R}\}}{||\mathbf{R}||_F}\Bigg]^2 = \frac{n_t^2n_r^2}{n_t n_r + \sum_{k,l=1,k \neq l}^{n_tn_r} |\mathbf{R}(k,l)|^2}.
     \end{align}
-    
-    
-    
+
+
+
 \end{itemize}
     \end{reminder}
     \part*{Exercices}
-    
+
     \begin{exercise}[Discrete Multipath]{1}
-    
+
         Let us consider a particular radio channel, described by two discrete multipath (caused by two clusters of scatterers). The propagation takes place in the horizontal plane only. The considered scenario is illustrated in \autoref{fig:multipath1}.
-        
+
         \begin{figure}[H]
         \centering
         \input{tikz/multipath}
@@ -82,39 +82,39 @@
     \begin{enumerate}
         \item Provide an analytical expression for the transmit RMS azimuth-spread.
         \item Derive the expression of the transmit correlation as a function of $\theta$ and the spacing $d$ between two adjacent antennas. The homogeneous assumption of the spatial channel can here be assumed. How do $\theta$ and $d$ affect the correlation?
-        \item Compute the effective diversity gain of the system for the following values: 
+        \item Compute the effective diversity gain of the system for the following values:
         \begin{itemize}
             \item[-] $n=2$ or $n=3$,
             \item[-] $d = \lambda / 2$ or $d = \lambda / 4$,
             \item[-] $\theta = \phi = \pi/20$ or $\theta = \phi = \pi/10$.
         \end{itemize}
     \end{enumerate}
-    
+
     \end{exercise}
-    
+
     \begin{solution}
-        
-            
+
+
       \begin{enumerate}
 
 \item Since the transmit signals can only propagate through the two paths of equal power, the transmit power spectra is given by\footnote{Here since the problem is considered in a two-dimensional plane, the angles are here scalar variables, and are consequently not written in bold as in the reminder.}
-    
+
     \begin{equation}
         A_t(\Omega_t) = \frac{1}{2} \delta(\Omega_t - \theta) + \frac{1}{2} \delta(\Omega_t + \theta),
     \end{equation}
-    
-    where $\delta (\cdot)$ is the Dirac function. As a reminder, this function has several useful properties: 
+
+    where $\delta (\cdot)$ is the Dirac function. As a reminder, this function has several useful properties:
     \begin{align}
         \int \delta (x) dx = 1, &&  f(x) \delta (x-a) = f(a)\delta (x-a).
     \end{align}
-    
-    Using these properties, the mean and RMS transmit angle spreads can be computed: 
+
+    Using these properties, the mean and RMS transmit angle spreads can be computed:
     \begin{align}
       \Omega_{t,M} &= \frac{\int \Omega_t A_t(\Omega_t) d\Omega_t}{\int A_t(\Omega_t) d\Omega_t}  = \frac{1/2(-\theta) + 1/2(\theta)}{1}=0, \\
       \Omega_{t,RMS} &= \sqrt{\frac{\int \big| \big| \Omega_t - \Omega_{t,M} \big| \big|^2 A_t(\Omega_t) d\Omega_t}{\int A_t(\Omega_t) d\Omega_t}} = \sqrt{\frac{1/2(\theta)^2 + 1/2 (-\theta)^2}{1}} = \theta.
     \end{align}
-    
-    \item The transmit correlation can be expressed as 
+
+    \item The transmit correlation can be expressed as
     \begin{align}
         t &= \mathbf{E}\Big[h_{r1}(t)h_{r2}^*(t) \Big], \\
         \intertext{(using the property of uniform linear array)}
@@ -128,14 +128,14 @@
         \intertext{(using the definition of transmit power spectrum)}
         &= \int_{0}^{2\pi} A(\Theta_t') e^{j2\pi\frac{d}{\lambda}\sin(\Theta_t')}  d\Theta_t', \\
         \intertext{(using the properties of the Delta function)}
-        &= \frac{1}{2}e^{j2\pi\frac{d}{\lambda}\sin(\theta)} 
+        &= \frac{1}{2}e^{j2\pi\frac{d}{\lambda}\sin(\theta)}
         + \frac{1}{2}e^{j2\pi\frac{d}{\lambda}\sin(-\theta)}, \\
         \intertext{(using the definition of the cosine as function of complex exponentials)}
         &= \cos \Big( \frac{2 \pi d}{\lambda} \sin (\theta) \Big).
     \end{align}
-    
-    \item For $n = 2$, the correlation matrix can be expressed as 
-    
+
+    \item For $n = 2$, the correlation matrix can be expressed as
+
     \begin{equation}
        \mathbf{R} = \begin{bmatrix}
         \mathbf{E}\big[h^*_{11}h_{11} \big] & \mathbf{E}\big[h^*_{11}h_{12} \big] & \mathbf{E}\big[h^*_{11}h_{21} \big] & \mathbf{E}\big[h^*_{11}h_{22} \big]\\
@@ -144,15 +144,15 @@
         \mathbf{E}\big[h^*_{22}h_{11} \big] & \mathbf{E}\big[h^*_{22}h_{12} \big] & \mathbf{E}\big[h^*_{22}h_{21} \big] & \mathbf{E}\big[h^*_{22}h_{22} \big]
         \end{bmatrix}.
     \end{equation}
-    
+
     The elements of this correlation matrix can be easily computed
-    
+
     \begin{itemize}
-        \item $|R(1,1)|^2 = |R(2,2)|^2 = |R(3,3)|^2 = |R(4,4)|^2 = 1$ 
+        \item $|R(1,1)|^2 = |R(2,2)|^2 = |R(3,3)|^2 = |R(4,4)|^2 = 1$
         \item $|R(2,1)|^2 = |R(1,2)|^2 = |R(3,4)|^2 = |R(4,3)|^2 = \cos^2 \Big( \frac{2 \pi d}{\lambda} \sin (\theta) \Big)$ (using the result of the previous question)
         \item $|R(3,1)|^2 = |R(1,3)|^2 = |R(2,4)|^2 = |R(4,2)|^2 = \cos^2 \Big( \frac{2 \pi d}{\lambda} \sin (\phi) \Big)$ (using the same reasoning)
         \item The term $R(1,4) = \mathbf{E}\big[h^*_{11}h_{22}\big]$ can be computed in the following manner
-        
+
         \begin{align}
         R(1,4) &= \mathbf{E}\Big[h_{11}(t)h_{22}^*(t) \Big], \\
         &= \mathbf{E}\Bigg[\int_{0}^{2\pi} \int_{0}^{2\pi}h_{r1}(t,\Theta_r,\Theta_t) d\Theta_t d\Theta_r \nonumber\\
@@ -162,33 +162,33 @@
         &= \int_{0}^{2\pi} \int_{0}^{2\pi}\int_{0}^{2\pi} \int_{0}^{2\pi}  \Big[A(\Theta_r,\Theta_t)\delta(\Theta_t - \Theta_t') \delta(\Theta_t - \Theta_t')\Big] d\Theta_t d\Theta_r \nonumber \\
         &\hspace{1cm}\times e^{j2\pi\frac{d}{\lambda}\sin(\Theta_t')} e^{j2\pi\frac{d}{\lambda}\sin(\Theta_r')} d\Theta_t' d\Theta_r', \\
         &= \int_{0}^{2\pi} \int_{0}^{2\pi} A(\Theta_r',\Theta_t')  e^{j2\pi\frac{d}{\lambda}(\sin(\Theta_t')+\sin(\Theta_r'))} d\Theta_t' d\Theta_r', \\
-        &= \frac{1}{2}e^{j2\pi\frac{d}{\lambda}(\sin(\theta)+\sin(\phi))} 
+        &= \frac{1}{2}e^{j2\pi\frac{d}{\lambda}(\sin(\theta)+\sin(\phi))}
         + \frac{1}{2}e^{-j2\pi\frac{d}{\lambda}(\sin(\theta)+\sin(\phi))}, \\
         &= \cos \bigg( \frac{2 \pi d}{\lambda} \big(\sin (\theta) +\sin (\phi)\big)\bigg).
     \end{align}
-    In the above proof, we have used the fact that 
-    
+    In the above proof, we have used the fact that
+
     \begin{equation}
         A(\Theta_r,\Theta_t) = \frac{1}{2} \delta(\Theta_r - \phi,\Theta_t - \theta)+ \frac{1}{2} \delta(\Theta_r + \phi,\Theta_t + \theta).
     \end{equation}
-    
+
     Note that this joint power spectrum is composed of Delta functions defined in two dimensions. By inserting all the above elements in the definition of the effective diversity gain, we obtain
-    
+
     \begin{align}
         N_{\text{div}} &= \dfrac{16}{4+ \sum_{k,l=1,k \neq l}^{4} |\mathbf{R}(k,l)|^2}, \\
         &= \dfrac{16}{4+ 4\cos^2\Big(s_\theta\Big) + 4\cos^2\Big(s_\phi\Big) + 4\cos^2\Big(s_\theta + s_\phi\Big)},
     \end{align}
     with $s_\theta = \frac{2\pi d}{\lambda}\sin(\theta)$ and $s_\phi = \frac{2\pi d}{\lambda}\sin(\phi)$.
-    
+
     The following numerical values are obtained:
-    
+
     \begin{center}
-    \begin{tabular}{ |c|c|c| } 
+    \begin{tabular}{ |c|c|c| }
      \hline
-     & $d = \lambda/2$ & $d = \lambda/4$ \\ 
+     & $d = \lambda/2$ & $d = \lambda/4$ \\
      \hline
-    $\theta = \pi/20$ & 1.40 & 1.09 \\ 
-    $\theta = \pi/10$ & 2.26 & 1.38 \\ 
+    $\theta = \pi/20$ & 1.40 & 1.09 \\
+    $\theta = \pi/10$ & 2.26 & 1.38 \\
     \hline
     \end{tabular}
     \end{center}
@@ -197,11 +197,11 @@
 
 \end{enumerate}
     \end{solution}
-    
+
     \begin{exercise}[Continuous Multipath]{2}
-    
-         We now consider the second scenario depicted in \autoref{fig:multipath2}. In this scenario, signals do no longer propagate via discrete multipath. The transmit and receive power spectra are given by: 
-    
+
+         We now consider the second scenario depicted in \autoref{fig:multipath2}. In this scenario, signals do no longer propagate via discrete multipath. The transmit and receive power spectra are given by:
+
     \vspace{-0.5 cm}
     \begin{multicols}{2}
       \begin{equation}
@@ -221,7 +221,7 @@
         \right\}.
       \end{equation}
     \end{multicols}
-        
+
         \begin{figure}[H]
         \centering
         \input{tikz/multipath}
@@ -233,17 +233,17 @@
         \caption{Illustration of the continuous multipath scenario.}
         \label{fig:multipath2}
         \end{figure}
-        
-            
+
+
     The other hypotheses from the first exercise are still valid.
-    
+
     \begin{enumerate}
-        \item Repeat question 1 and 2 (from exercise 1) for this second scenario. 
+        \item Repeat question 1 and 2 (from exercise 1) for this second scenario.
         \item[] Hint: $\int x^2\cos(x) dx = (x^2-2)\sin(x)+2x\cos(x) + K$.
     \end{enumerate}
-        
+
     \end{exercise}
-    
+
     \begin{solution}
         \begin{enumerate}
             \item The mean and RMS transmit angle spreads are given by
@@ -254,10 +254,10 @@
       &= \sqrt{\frac{\int_{-\pi/4}^{\pi/4} \frac{\sqrt{2}}{2} \Omega_t^2 \cos(\Omega_t) d\Omega_t}{\int_{-\pi/4}^{\pi/4} \frac{\sqrt{2}}{2} \cos(\Omega_t) d\Omega_t}}\nonumber\\
       &= \sqrt{\dfrac{\pi^2}{16}-2+\frac{\pi}{2}}
     \end{align}
-    
+
 In the above equations, the mean angle spread is equal to zero, since the function integrated at the numerator is odd. The final value of the RMS spread is obtained by using the provided hint.
 
-The transmit correlation can be expressed as 
+The transmit correlation can be expressed as
 
 \begin{align}
         t &= \mathbf{E}\Big[h_{r1}(t)h_{r2}^*(t) \Big], \\
@@ -270,5 +270,5 @@ The transmit correlation can be expressed as
     \end{align}
         \end{enumerate}
     \end{solution}
-   
+
 \end{document}

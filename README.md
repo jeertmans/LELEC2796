@@ -97,7 +97,7 @@ We ask you to produce, by groups of 1, 2, or 3:
   + a critical comparison with the scientific litterature;
   + some words of future work, the challenges you faced, and so on;
   + and a conclusion.
-+ a Git (public or private) repository with 
++ a Git (public or private) repository with
   a documented procedure on how to obtain the same results as you did.
   We will give a special attention to:
   + a simple but complete installation and execution procedure;

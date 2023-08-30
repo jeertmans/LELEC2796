@@ -35,7 +35,7 @@ class Points:
         """
         Generate n points using a random uniform distribution.
         """
-        return Points(array=np.random.rand(n, 2) - np.array([.5, .5]))
+        return Points(array=np.random.rand(n, 2) - np.array([0.5, 0.5]))
 
     def draw(self, ax: Optional[plt.Axes] = None, *args, **kwargs) -> Any:
         """
@@ -71,6 +71,7 @@ class Circle(Cell):
     """
     Circular cell.
     """
+
     radius: float = 1.0
     center: np.ndarray = np.array([0.0, 0.0])
 
@@ -107,6 +108,7 @@ class Hexagon(Cell):
     """
     Hexagonal cell.
     """
+
     radius: float = 1.0
     center: np.ndarray = np.array([0.0, 0.0])
     rotation: float = 0.0

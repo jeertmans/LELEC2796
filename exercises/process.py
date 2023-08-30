@@ -35,7 +35,9 @@ def main():
             break
 
     args.infile.write_text("\n".join(statement))
-    (args.infile.with_stem(args.infile.stem + "_solution")).write_text("\n".join(solution))
+    (args.infile.with_stem(args.infile.stem + "_solution")).write_text(
+        "\n".join(solution)
+    )
 
 
 if __name__ == "__main__":

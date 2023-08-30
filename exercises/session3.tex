@@ -9,30 +9,30 @@
 \begin{document}
 
     \makesessiontitle
-    
+
     \begin{reminder}
- 
+
     In radiocommunications, the quality of a wireless transmission is often evaluated in terms of bit error rate (BER). This metric indicates the percentage of correctly detected information and is often expressed as a function of the signal-to-noise ratio at the receiver.
-    
-    
-    In the case of BPSK symbols transmitted over an AWGN channel\footnote{As a reminder, the AWGN channel is characterized by an output signal given by 
-    
+
+
+    In the case of BPSK symbols transmitted over an AWGN channel\footnote{As a reminder, the AWGN channel is characterized by an output signal given by
+
     \begin{equation}
         y(n) = x(n) + w(n),
     \end{equation}
-    
-    
+
+
     where $x(n)$ is the input signal and $w(n)$ an AWGN noise.}, the BER is given by
     \begin{equation}
         P_{e,\text{AWGN}}= \frac{1}{2}\text{erfc}(\sqrt{\rho_0}),
     \end{equation}
-    
-    
+
+
     where $\rho_0 = E_s/N_0$, with $E_s$ the energy per symbol, and $N_0$ the power spectral density of the noise. The resulting BER curve is displayed in log scale in \autoref{graph_reminder}. \\
-    
-    
+
+
     The assumption of an AWGN channel is however ideal and often unrealistic, since the channel impulse response is supposed to consist in a unique tap of unit amplitude. In practice, the signals transmitted over the air suffer from random fluctuations called \textit{fading} (see \autoref{fading}).
-    
+
     \begin{figure}[H]
         \centering
         \begin{tikzpicture}
@@ -46,47 +46,47 @@
         \caption{Typical received signal strength in a Rayleigh fading channel with a Doppler of \SI{100}{\hertz}.}
         \label{fading}
     \end{figure}
-    
+
     One typical scenario studied in the literature is called \textit{Rayleigh fading}. In that case, the channel $h$ is random and follows a complex scalar Gaussian distribution. Consequently, the modulus of the channel $|h|$ follows a Rayleigh distribution and the square of the modulus $|h|^2$ follows an exponential distribution. For one given realization of the channel, the instantaneous BER can be expressed as:
-    
+
     \begin{equation}
-        P_{e,\text{inst}}= \frac{1}{2}\text{erfc}\big(\sqrt{|h|^2 \rho_0}\big). 
+        P_{e,\text{inst}}= \frac{1}{2}\text{erfc}\big(\sqrt{|h|^2 \rho_0}\big).
     \end{equation}
-    
-    
-    Since the channel $h$ takes random values, the average BER must be computed by integrating the above expression over the probability density function of $|h|^2$. Let $v = |h|^2$ and $f_v(v)$ the probability density of $v$. We obtain the following expression: 
-    
-    
+
+
+    Since the channel $h$ takes random values, the average BER must be computed by integrating the above expression over the probability density function of $|h|^2$. Let $v = |h|^2$ and $f_v(v)$ the probability density of $v$. We obtain the following expression:
+
+
     \begin{equation}
         \overline{P}_{e,\text{Rayleigh}}= \int^{+\infty}_{0}\frac{1}{2}\text{erfc}(\sqrt{v \rho_0}) f_v(v) dv = \frac{1}{2} \Bigg(1 - \sqrt{\frac{\rho_0}{1+\rho_0}}\Bigg). \hspace{1 cm} (\text{for} \; \; v = |h|^2 \sim \exp(1))
     \end{equation}
-    
-    It can be shown that, for large SNR values, this expression is proportional to $\frac{1}{4\rho_0}$. The resulting curve is depicted in \autoref{graph_reminder}. One can observe that the error probability is higher compared to the AWGN case. 
-    
-    
+
+    It can be shown that, for large SNR values, this expression is proportional to $\frac{1}{4\rho_0}$. The resulting curve is depicted in \autoref{graph_reminder}. One can observe that the error probability is higher compared to the AWGN case.
+
+
     To mitigate this increase in error probability, \textit{diversity techniques} are usually employed. The principle of diversity is to provide the receiver with multiple versions of the same transmitted signal. Each of these versions is defined as a diversity branch. If these versions are affected by independent fading conditions, the probability that all branches are strongly distorted at the same time reduces dramatically. Hence, diversity helps stabilize the link, which leads to an improved performance in terms of error rate. Diversity can be exploited in several dimensions: time, frequency, space, ...
-    
-    
-    In this session, different schemes exploiting diversity will be compared according to two metrics: 
-    
+
+
+    In this session, different schemes exploiting diversity will be compared according to two metrics:
+
     \begin{itemize}
-        \item \underline{the array gain}: this metric characterizes the improvement of the average SNR thanks to the diversity scheme. It is defined as 
-        
+        \item \underline{the array gain}: this metric characterizes the improvement of the average SNR thanks to the diversity scheme. It is defined as
+
         \begin{equation}
-        g_a \triangleq \frac{\overline{\rho}_{out}}{\overline{\rho}_{\text{branch}}},    
+        g_a \triangleq \frac{\overline{\rho}_{out}}{\overline{\rho}_{\text{branch}}},
         \end{equation}
-        
+
         with $\overline{\rho}_{\text{branch}}$, the average SNR evaluated on a single branch, and $\overline{\rho}_{out}$, the average SNR at the output of the combining scheme. The array gain corresponds to a horizontal shift on the BER curve when comparing to the Rayleigh case without diversity (see \autoref{graph_reminder}).
-        
-        \item \underline{the diversity gain}: this metric represents the improvement in terms of BER and is defined as 
-        
+
+        \item \underline{the diversity gain}: this metric represents the improvement in terms of BER and is defined as
+
         \begin{equation}
         g_d^o(\rho) = -\frac{\text{log}(\overline{P})}{\text{log}(\rho_0)},
-        \end{equation} 
-        
+        \end{equation}
+
         where $\overline{P}$ is the averaged BER. The diversity gain represents the (asymptotic) increase of the slope of the BER (obtained thanks to the diversity scheme) compared to the simple Rayleigh case (without diversity).
     \end{itemize}
-    
+
     \begin{figure}[H]
         \centering
         \begin{tikzpicture}
@@ -112,7 +112,7 @@
     \end{figure}
 
     \textbf{Reference}: Lecture notes (lectures 8 and 9).
-    
+
     \pagebreak
     \part*{Don't forget your maths!}
 
@@ -134,18 +134,18 @@
 \paragraph{Distributions}
 
 \begin{itemize}
-\item[-] Let $h$ be a Rayleigh fading channel. In that case, we have 
+\item[-] Let $h$ be a Rayleigh fading channel. In that case, we have
     \begin{itemize}
         \item $h \sim \mathcal{C}\mathcal{N}(0,\sigma)$,
         \item $|h| \sim \text{Rayleigh}(\sigma)$,
-        \item and $|h|^2 \sim \exp(2\sigma^2)$ (in the beta parametrization). 
+        \item and $|h|^2 \sim \exp(2\sigma^2)$ (in the beta parametrization).
     \end{itemize}
-    
+
 \item[-] Let $X \sim \text{exp}(\beta)$ be an exponential random variable of mean $\beta$:
-    
-    \begin{itemize} 
+
+    \begin{itemize}
     \item[-] the probability density function of $X$ is given by $f_X(x) = \frac{1}{\beta}e^{-x/\beta}u(x)$,
-    \item[-] its cumulative distribution function is given by $F_X(x) = \big(1 - e^{-x/\beta}\big)u(x)$, where $u(x)$ is the step function, 
+    \item[-] its cumulative distribution function is given by $F_X(x) = \big(1 - e^{-x/\beta}\big)u(x)$, where $u(x)$ is the step function,
     \item[-] and its characteristic function is given by $\phi_X(t) = (1-\beta jt)^{-1}$.
     \end{itemize}
 
@@ -161,33 +161,33 @@
 \paragraph{Identities}
 
 \begin{itemize}
-\item[-] Let $X_i$ ($i=1,...,L$) be independent Rayleigh random variables of parameter $1$. We have 
+\item[-] Let $X_i$ ($i=1,...,L$) be independent Rayleigh random variables of parameter $1$. We have
     \begin{equation}
     \mathbb{E}\Big[ |\sum_{i=1}^{L} X_i|^2 \Big] = 2L + 2L(L-1)\frac{\pi}{4}.
     \end{equation}
-    
+
 \item[-] If $f_L(x)$ is the probability density function of a chi-squared distribution with 2L degrees of freedom, then
-    
+
     \begin{equation}
     \int_{0}^{+\infty}\frac{1}{2}\text{erfc}\big(\sqrt{ax}\big)f_L(x)dx \approx \binom{2L-1}{L} (8a)^{-L}.
     \end{equation}
 
 \end{itemize}
-    
+
     \end{reminder}
-    
+
     \part*{Exercices}
-    
+
     \begin{exercise}[Maximum ratio combining]{1}
         We consider the maximum ratio combining (MRC) method for Lth-order diversity, given in Figure \ref{fig:combining}. It is assumed that a coherent combining is done at the receiver, prior to final detection. The transmitter is equivalent to a low pass signal $u(t)$. The transmitted symbols come from a BPSK constellation and have unit energy. The noises are assumed to be complex Gaussian random variables $n_k(t) \sim \mathcal{C}\mathcal{N}(0,N_k)$ and are independent on every link. The channel is flat fading. The channel values are supposed to be known in advance at the combiner. The objective is to minimize the probability of error at the output of the combiner by maximizing the SNR.
-            
+
             \begin{figure}[H]
             \centering
             \input{tikz/combining}
             \caption{Block diagram representation of the maximum ratio combining approach}
             \label{fig:combining}
             \end{figure}
-            
+
         \begin{enumerate}
         \item Give the expression of the combined signal using the general linear combining rule.
         \item Assuming a slowly time varying channel, give the expression of the output SNR. Then deduce the general form of the weights of the combining rule maximizing that SNR.
@@ -195,161 +195,161 @@
         \item What are the values of the array and diversity gains of this combining approach?
         \end{enumerate}
     \end{exercise}
-    
+
     \begin{solution}
-        
-            
+
+
         \begin{enumerate}
-    \item The signal at the input of receiver $k$ is given by 
-    
+    \item The signal at the input of receiver $k$ is given by
+
     \begin{equation}
         x_k(t) = \pm u(t) h_k(t) + n_k(t),
     \end{equation}
-    
+
     where $h_k(t)$ is the complex channel gain of the kth path.
-    
-    The signal at the output of the combiner is given by 
-    
+
+    The signal at the output of the combiner is given by
+
     \begin{equation}
         c(t) = \sum_{k=1}^{L} \alpha_k x_k(t).
     \end{equation}
-    
-    \item In the case of a slowly varying channel, the signal $c(t)$ can be decomposed into 
-    
+
+    \item In the case of a slowly varying channel, the signal $c(t)$ can be decomposed into
+
     \begin{align}
         c(t) = \underbrace{\pm u(t) \sum_{k=1}^{L}\alpha_kh_k}_{\text{useful signal}} + \underbrace{\sum_{k=1}^{L}\alpha_k n_k(t)}_{\text{equivalent noise}}.
     \end{align}
-    
-    Assuming independent $n_k(t)$, the instantaneous SNR at the output of the combiner can be expressed as 
-    
+
+    Assuming independent $n_k(t)$, the instantaneous SNR at the output of the combiner can be expressed as
+
     \begin{equation}
         \rho_{out} = \dfrac{\Big| \sum_{k=1}^{L}\alpha_kh_k \Big|^2}{\sum_{k=1}^{L} |\alpha_k|^2N_k}.
     \end{equation}
-    
-    The coefficients $\alpha_k$ must be selected in order to maximize the SNR. The above equation can be rewritten in the following manner: 
-    
+
+    The coefficients $\alpha_k$ must be selected in order to maximize the SNR. The above equation can be rewritten in the following manner:
+
         \begin{equation}
         \rho_{out} = \dfrac{\Big| \sum_{k=1}^{L}\alpha_k\sqrt{N_k} \frac{h_k}{\sqrt{N_k}} \Big|^2}{\sum_{k=1}^{L} |\alpha_k|^2N_k}.
         \end{equation}
-    
-    Let us define the following vectors 
+
+    Let us define the following vectors
     \begin{align}
         \mathbf{a} &= \Big[\alpha_1\sqrt{N_1} \hdots \alpha_L\sqrt{N_L}\Big], \\
         \mathbf{b} &= \bigg[\frac{h^*_1}{\sqrt{N_1}} \hdots \frac{h^*_L}{\sqrt{N_L}}\bigg].
     \end{align}
-    
-    Using the above notations, the SNR can be rewritten as 
-    
+
+    Using the above notations, the SNR can be rewritten as
+
         \begin{equation}
         \rho_{out} = \dfrac{(\mathbf{a} \cdot\mathbf{b})^2 }{||\mathbf{a}||^2},
         \end{equation}
-    
+
     where $(\mathbf{a} \cdot\mathbf{b})$ is the dot product of the two complex vectors, defined as $(\mathbf{a} \cdot\mathbf{b}) = \sum_i a_i b_i^*$.
-    
-    Using Cauchy-Schwartz inequality, we therefore have 
-    
+
+    Using Cauchy-Schwartz inequality, we therefore have
+
         \begin{equation}
         \rho_{out} = \dfrac{(\mathbf{a} \cdot\mathbf{b})^2 }{||\mathbf{a}||^2} \leq \dfrac{||\mathbf{a}|| ||\mathbf{b}|| }{||\mathbf{a}||^2} = \dfrac{ ||\mathbf{b}|| }{||\mathbf{a}||}.
         \end{equation}
-    
-    Using the hints, the above expression is maximized if $\mathbf{a} = \lambda  \mathbf{b} $ for some constant $\lambda$\footnote{ This constant $\lambda$ does not matter here because in practice, the vector $\mathbf{a}$ is constrained to a limited energy $||\mathbf{a}||^2$. Indeed, the weigths $\alpha_i$ contained in this vector cannot be arbitrarily large in practice.}. For each element of $\mathbf{a}$, we have 
-    
+
+    Using the hints, the above expression is maximized if $\mathbf{a} = \lambda  \mathbf{b} $ for some constant $\lambda$\footnote{ This constant $\lambda$ does not matter here because in practice, the vector $\mathbf{a}$ is constrained to a limited energy $||\mathbf{a}||^2$. Indeed, the weigths $\alpha_i$ contained in this vector cannot be arbitrarily large in practice.}. For each element of $\mathbf{a}$, we have
+
     \begin{equation}
         \alpha_k\sqrt{N_k} = \lambda \frac{h^*_k}{\sqrt{N_k}} \; \; \rightarrow \; \; \alpha_k = \frac{\lambda h_k^*}{N_k}.
     \end{equation}
-    
+
     The MRC is a weighted summation of each of the L branches, where each branch is multiplied by the complex conjugate of the channel gain, divided by the noise variance of that channel.
-    
-    \item Let us now assume that 
-    
+
+    \item Let us now assume that
+
     \begin{itemize}
         \item $N_k = N_0, \; \forall k$,
-        \item and that the symbol energy is given by $\epsilon$ (which was equal to 1 in the previous question). 
-    \end{itemize} 
-    
-    In that case, the SNR can be expressed as 
+        \item and that the symbol energy is given by $\epsilon$ (which was equal to 1 in the previous question).
+    \end{itemize}
+
+    In that case, the SNR can be expressed as
 
     \begin{equation}
         \rho_{out} = \dfrac{\Big| \sum_{k=1}^{L}\alpha_kh_k \Big|^2 \epsilon}{\sum_{k=1}^{L} |\alpha_k|^2N_0}
     \end{equation}
-    
-    By replacing the optimum values of $\alpha_k$ in the above expression, we obtain 
-    
+
+    By replacing the optimum values of $\alpha_k$ in the above expression, we obtain
+
         \begin{equation}
         \rho_{out} = \dfrac{\Big| \sum_{k=1}^{L}|h_k|^2 \Big|^2 \epsilon}{\sum_{k=1}^{L} |h_k|^2N_0} = \underbrace{\bigg( \sum_{k=1}^{L} |h_k|^2 \bigg)}_{z} \underbrace{\dfrac{\epsilon}{N_0}}_{\rho_0}.
         \end{equation}
-    
-    In the above expression, we have defined $\rho_0 = \epsilon/N_0$. We have also defined the random variable $z$ which is the sum of the squared amplitudes of the channels. 
-    
-    The instantaneous bit error rate is given by 
-    
+
+    In the above expression, we have defined $\rho_0 = \epsilon/N_0$. We have also defined the random variable $z$ which is the sum of the squared amplitudes of the channels.
+
+    The instantaneous bit error rate is given by
+
     \begin{equation}
         P_{e,\text{\normalfont inst}}= \frac{1}{2}\text{\normalfont erfc}\big(\sqrt{z \rho_0}\big).
     \end{equation}
-    
-    This BER must be averaged over the distribution of $z$. 
-    
+
+    This BER must be averaged over the distribution of $z$.
+
     By definition, $z = \sum_{k=1}^{L} |h_k|^2$ is the sum of the L squared channel amplitudes. Since one channel gain is complex Gaussian, the square of its amplitude follows an exponential distribution. The characteristic function of $z$ is the product of the characteristic functions of all the squared amplitudes
-    
+
     \begin{equation}
         \phi_Z(t) = \prod_{k=1}^{L} \dfrac{1}{(1-2jt)} = \dfrac{1}{(1-2jt)^L}.
     \end{equation}
-    
-    By taking the inverse Fourier transform of the characteristic function, the probability density function of $z$ is given by 
-    
+
+    By taking the inverse Fourier transform of the characteristic function, the probability density function of $z$ is given by
+
     \begin{equation}
         f_Z(z) = \frac{z^{L-1}e^{-z/2}}{2^L(L-1)!} u(x).
     \end{equation}
-    
-    This expression is the distribution of a chi-squared random variable with $k=2L$ degrees of freedom. 
-    
-    The averaged bit error rate is hence given by 
-    
+
+    This expression is the distribution of a chi-squared random variable with $k=2L$ degrees of freedom.
+
+    The averaged bit error rate is hence given by
+
     \begin{equation}
     \overline{P}_e = \int_{0}^{\infty} \frac{1}{2}\text{\normalfont erfc}\big(\sqrt{z \rho_0}\big) \frac{z^{L-1}e^{-z/2}}{2^L(L-1)!} dz.
     \end{equation}
-    
-    For information, the above integral will result in a special function called Gauss hypergeometric function. 
-    
-    When the value of $\rho_0$ is high, the bit error rate can be approximated as (see hints) 
-    
+
+    For information, the above integral will result in a special function called Gauss hypergeometric function.
+
+    When the value of $\rho_0$ is high, the bit error rate can be approximated as (see hints)
+
     \begin{equation}
     \overline{P}_e \approx \binom{2L-1}{L} (8\rho_0)^{-L}.
     \end{equation}
-    
-    \item The diversity gain is by definition is given by 
-    
+
+    \item The diversity gain is by definition is given by
+
     \begin{equation}
         g_d^o(\rho) = -\frac{\text{\normalfont log}(\overline{P}_e)}{\text{\normalfont log}(\rho_0)}.
     \end{equation}
-    
-    At high SNR values, one can use the approximation of the previous question. In that case, one can observe that the diversity gain of MRC is equal to $L$, the number of branches. 
-    
+
+    At high SNR values, one can use the approximation of the previous question. In that case, one can observe that the diversity gain of MRC is equal to $L$, the number of branches.
+
     The array gain is given by
-    
+
     \begin{equation}
-    g_a \triangleq \frac{\overline{\rho}_{out}}{\overline{\rho}_{\text{branch}}},   
+    g_a \triangleq \frac{\overline{\rho}_{out}}{\overline{\rho}_{\text{branch}}},
     \end{equation}
-    
-    where 
-    
+
+    where
+
     \begin{equation}\overline{\rho}_{out} = \mathbb{E}\big[ \rho_{out} \big] =  \mathbb{E}\Bigg[ \bigg( \sum_{k=1}^{L} |h_k|^2 \bigg) \dfrac{\epsilon}{N_0} \Bigg] =  \bigg( \sum_{k=1}^{L} \mathbb{E}\big[ |h_k|^2 \big] \bigg) \dfrac{\epsilon}{N_0} = 2L \rho_0,
     \end{equation}
-    
-    and 
-    
+
+    and
+
     \begin{equation}\overline{\rho}_{branch} = \mathbb{E}\bigg[|h_k|^2 \dfrac{\epsilon}{N_0} \bigg] = 2 \rho_0,
     \end{equation}
-    
+
     for any branch $k$.
-    
+
     The resulting array gain is therefore equal to $L$.
-    
+
 \end{enumerate}
 
 
     \end{solution}
-    
+
     \begin{exercise}[Equal gain combining]{2}
     We consider the same system as in \autoref{fig:combining} but now with a different combining rule: the weights of the branches are now tuned to compensate the phase shift caused by their respective channels, without changing the magnitude of the received signals. This choice of weights corresponds to the equal gain combining method.
 \begin{enumerate}
@@ -357,129 +357,129 @@
 \item What is the value of the array gain of this combining approach?
 \end{enumerate}
     \end{exercise}
-    
+
     \begin{solution}
-  
+
               Let us express the channel coefficients in polar coordinates $h_k = |h_k|e^{j\phi_k}$.
 
 \begin{enumerate}
     \item The weights are given by $\alpha_k = e^{-j\phi_k}$ for $k=1,\hdots,L$.
-    \item Following the same reasoning as in exercise 1, the output signal can be expressed as 
-    
+    \item Following the same reasoning as in exercise 1, the output signal can be expressed as
+
     \begin{align}
         c(t) &= \pm u(t) \sum_{k=1}^{L}\alpha_kh_k + \sum_{k=1}^{L}\alpha_k n_k(t), \\
         &= \pm u(t) \sum_{k=1}^{L} |h_k| + \sum_{k=1}^{L} e^{j\phi_k} n_k(t).
     \end{align}
-    
-    The average signal-to-noise ratio at the output of the system is given by 
-    
+
+    The average signal-to-noise ratio at the output of the system is given by
+
     \begin{align}
         \overline{\rho}_{out} &= \dfrac{\mathbb{E}\bigg[ \Big| \sum_{k=1}^{L} |h_k| \Big|^2 \bigg] \epsilon}{\mathbb{E}\Big[ |\tilde{n}(t)|^2\Big]},\\
         &= \dfrac{\Big(2L+2L(L-1)\frac{\pi}{4}\Big) \epsilon}{LN_0},
     \end{align}
-    
+
     where $\tilde{n}(t) = \sum_{k=1}^{L} e^{-j\phi_k}n_k(t)$ is still a Gaussian noise $\mathcal{C}\mathcal{N}(0,LN_0)$.
-    
-    The average signal-to-noise ratio at the output of one branch is given by 
-    
+
+    The average signal-to-noise ratio at the output of one branch is given by
+
     \begin{align}
     \overline{\rho}_{\text{branch}} &= \dfrac{\mathbb{E}\bigg[ |h_k|^2 \bigg] \epsilon}{\mathbb{E}\Big[ |n_k(t)e^{-j\phi_k}|^2\Big]} = \dfrac{2\epsilon}{N_0},
     \end{align}
-    
-    for any branch $k$. 
-    
+
+    for any branch $k$.
+
     We obtain
-    
+
     \begin{equation}
     g_a \triangleq \frac{\overline{\rho}_{out}}{\overline{\rho}_{\text{branch}}} = 1 + (L-1)\dfrac{\pi}{4}.
     \end{equation}
-    
+
     One can observe that the array gain grows linearly with $L$.
 \end{enumerate}
 
-  
+
     \end{solution}
-    
-    
+
+
     \begin{exercise}[Selection combining]{3}
     Still starting from the system in \autoref{fig:combining}. Suppose that, instead of performing a linear combination, the receiver compares the instantaneous amplitude of each channel and selects the branch with the highest amplitude.
 
     Obtain the probability density function of the squared amplitude of the channel of the selected branch.
     \end{exercise}
-    
+
     \begin{solution}
-    
+
         Let $X_k = |h_k|^2$ be the squared amplitude of channel $k$, with $k=1,\hdots,L$.
-The cumulative distribution function of each of these variables is given by 
+The cumulative distribution function of each of these variables is given by
 
     \begin{equation}
         F_X(x) = \big(1 - e^{-x/2}\big)u(x).
         \end{equation}
- 
- The cumulative distribution function of the $Z = max\{X_1, \hdots, X_L \}$ can therefore be expressed as 
- 
+
+ The cumulative distribution function of the $Z = max\{X_1, \hdots, X_L \}$ can therefore be expressed as
+
 \begin{align}
-    F_Z(z)&= \mathbb{P}\Big[|h_1|^2 < z \Big] \hdots \mathbb{P}\Big[|h_L|^2 < z \Big] = \Big(1 - e^{-z/2} \Big)^L u(z). 
-\end{align} 
- 
+    F_Z(z)&= \mathbb{P}\Big[|h_1|^2 < z \Big] \hdots \mathbb{P}\Big[|h_L|^2 < z \Big] = \Big(1 - e^{-z/2} \Big)^L u(z).
+\end{align}
+
 The probability density function of $Z$ can simply be obtained by taking the derivative of the cdf
 
 \begin{align}
     f_Z(z)&= \dfrac{\partial F_Z(z)}{\partial z} = \dfrac{Le^{-z/2}}{2} \Big(1 - e^{-z/2} \Big)^{L-1} u(z).
-\end{align} 
+\end{align}
 
-    
+
     \end{solution}
-        
+
     \begin{exercise}[Alamouti's diversity scheme]{4}
     Consider the Alamouti scheme illustrated in \autoref{fig_2}.
-    
+
     \begin{figure}[H]
     \centering
     \input{tikz/alamouti}
     \caption{Alamouti's scheme.}
     \label{fig_2}
     \end{figure}
-    
+
     \begin{enumerate}
-    \item Express the received signals at a time instants $t$ and $t + T$, where $T$ is the symbol duration. 
-    \item What are the resulting-combined signals? 
+    \item Express the received signals at a time instants $t$ and $t + T$, where $T$ is the symbol duration.
+    \item What are the resulting-combined signals?
     \item How is it possible to recover the original data?
     \item Give the diversity gain of this scheme.
     \item Which assumption regarding the channels is necessary in the case of this system?
     \end{enumerate}
     \end{exercise}
-    
+
     \begin{solution}
-      
+
          Let $T$ be symbol duration of the system.
 
 \begin{enumerate}
-    \item At a given time $t$, two signals are simultaneously transmitted from the two antennas: during the first symbol, $s_0$ from the first antenna and $s_1$ from the second. During the next time slot $t+T$, $-s1^*$ from the first antenna and $s_0^*$ from the second. 
-    
+    \item At a given time $t$, two signals are simultaneously transmitted from the two antennas: during the first symbol, $s_0$ from the first antenna and $s_1$ from the second. During the next time slot $t+T$, $-s1^*$ from the first antenna and $s_0^*$ from the second.
+
     \begin{center}
-    \begin{tabular}{ |c|c|c| } 
+    \begin{tabular}{ |c|c|c| }
     \hline
-     & Antenna 0 & Antenna 1 \\ 
+     & Antenna 0 & Antenna 1 \\
      \hline
-    $t$ & $s_0$ & $s_1$ \\ 
+    $t$ & $s_0$ & $s_1$ \\
     \hline
-    $t+T$ & $-s_1^*$ & $s_0^*$ \\ 
+    $t+T$ & $-s_1^*$ & $s_0^*$ \\
     \hline
     \end{tabular}
     \end{center}
-    
-    Assuming that the fading is constant accross two consecutive symbols, we can write 
-    
+
+    Assuming that the fading is constant accross two consecutive symbols, we can write
+
     \begin{equation}
     \begin{cases}
     h_0(t) &= h_0(t+T) = h_0 = \alpha_0e^{j\theta_0},\\
     h_1(t) &= h_1(t+T) = h_1 = \alpha_1e^{j\theta_1},
     \end{cases}
     \end{equation}
-    
-    The received signals can be expressed as 
-    
+
+    The received signals can be expressed as
+
     \begin{equation}
     \begin{cases}
     r_0 &= r(t) = h_0s_0 + h_1s_1 + n_0,\\
@@ -487,23 +487,23 @@ The probability density function of $Z$ can simply be obtained by taking the der
     \end{cases}
     \end{equation}
     where $r_0$ and $r_1$ are the receive signals at times $t$ and $t+T$, $n_0$ and $n_1$ are complex random variables representing the noise plus interference.
-    
-    \item The combiner builds the following two combined signals that are sent to the maximum likelihood detector: 
-    
+
+    \item The combiner builds the following two combined signals that are sent to the maximum likelihood detector:
+
     \begin{equation}
     \begin{cases}
     \tilde{s}_0 &= h_0^*r_0 + h_1r_1^* = (\alpha_0^2 + \alpha_1^2)s_0 + h_0^*n_0 + h_1n_1^*, \\
     \tilde{s}_1 &= h_1^*r_0 - h_0r_1^* = (\alpha_0^2 + \alpha_1^2)s_1 - h_0n_1^* + h_1^*n_0.
     \end{cases}
     \end{equation}
-    
+
     \item The data can be recovered using the decision rule described in Alamouti's paper (available on Moodle).
     \item The diversity gain of Alamouti's scheme with a 1$\times$2 MIMO system is equal to 2. It is possible to prove it by using the same reasoning as in the first exercise (\textit{check it!}).
-    \item This scheme assumes that the channel does not change over two successive symbols. In other words, the coherence time of the channel is much larger than the symbol duration. 
+    \item This scheme assumes that the channel does not change over two successive symbols. In other words, the coherence time of the channel is much larger than the symbol duration.
 \end{enumerate}
 
     \end{solution}
-   
+
     \begin{exercise}[Exam January 2019]{5}
         One considers a system that employs 2-branch selection diversity, where each diversity branch consists of 2 antennas, with maximal ratio combining as shown in \autoref{exe2}. The channels of all the receive antennas are flat fading and follow a complex normal distribution $\mathcal{C}\mathcal{N}(0,1)$. These channel values are supposed to be known in advance at the combiner. The noises are assumed to be complex Gaussian random variables $n_k(t) \sim \mathcal{C}\mathcal{N}(0,N_0)$ and are independent for every antenna. A BPSK modulation is used for this system. The energy per symbol is given by $E_s$.
 
@@ -511,7 +511,7 @@ The probability density function of $Z$ can simply be obtained by taking the der
             \item Derive the expression of the probability density function of the SNR $\lambda_1$ at the output of the MRC block.
             \item Provide an integral expression for the average bit error rate. Express your result as a function of the CDF and the PDF of $\lambda_1$.
         \end{enumerate}
-        
+
         \begin{figure}[H]
             \centering
             \input{tikz/diversity_exam}
@@ -521,7 +521,7 @@ The probability density function of $Z$ can simply be obtained by taking the der
     \end{exercise}
 
     \begin{solution}
-       First, let us introduce the following notations 
+       First, let us introduce the following notations
 
 \begin{itemize}
     \item $\lambda_0 = E_s/N_0$.
@@ -531,29 +531,29 @@ The probability density function of $Z$ can simply be obtained by taking the der
 
 \begin{enumerate}
 
-\item The SNR $\lambda_1$ at the output of the first MRC block is given by 
+\item The SNR $\lambda_1$ at the output of the first MRC block is given by
 
 \begin{equation}\lambda_1 = \big(|h_1|^2+|h_2|^2 \big) \frac{E_s}{N_0} = \big(|h_1|^2+|h_2|^2 \big) \lambda_0.
 \end{equation}
 
-The random variable $X = |h_1|^2$ follows an exponential distribution. The following elements can be successively deduced 
+The random variable $X = |h_1|^2$ follows an exponential distribution. The following elements can be successively deduced
 \begin{itemize}
     \item the probability density function of $X$ is given by $ f_X(x) = \dfrac{e^{-x/2}}{2} u(x)$,
     \item the characteristic function of $X$ is given by $\phi_X(t) = (1-2 jt)^{-1}$,
     \item let $Y = |h_2|^2$ and $Z = X+Y$. The characteristic function of $Z$ is the product of the characteristic functions of $X$ and $Y$ and is given by $\phi_Z(t) = (1-2 jt)^{-2}$,
     \item the probability density function of $Z$ is given by $f_Z(z) = \dfrac{ze^{-z/2}}{4} u(z)$,
-    \item and the probability density function of the $\lambda_1 = \big(|h_1|^2+|h_2|^2 \big) \dfrac{E_s}{N_0} = \lambda_0 Z$ is given by 
+    \item and the probability density function of the $\lambda_1 = \big(|h_1|^2+|h_2|^2 \big) \dfrac{E_s}{N_0} = \lambda_0 Z$ is given by
     \begin{equation}f_{\Lambda_1}(\lambda_1) = \frac{1}{4\lambda_0^2}\lambda_1 e^{-\dfrac{\lambda_1}{2\lambda_0}} u(x).\end{equation}
 \end{itemize}
 
-The SNR $\lambda_2$ at the output of the second MRC block follows of course the same distribution. 
+The SNR $\lambda_2$ at the output of the second MRC block follows of course the same distribution.
 
-\item The instantaneous BER can be expressed as 
+\item The instantaneous BER can be expressed as
 
 \begin{equation}P_{e,\text{inst}} = \frac{1}{2}\text{erfc}\big(\sqrt{\lambda_{max}}\big).\end{equation}
 
-This BER must be integrated over the probability density function of $\lambda_{\text{max}}$. Let us derive this density function. 
-The cumulative distribution function of $\lambda_{\text{max}}$ is given by 
+This BER must be integrated over the probability density function of $\lambda_{\text{max}}$. Let us derive this density function.
+The cumulative distribution function of $\lambda_{\text{max}}$ is given by
 
 \begin{align}
     F_{\Lambda_{\text{max}}} (\lambda_{\text{max}}) &= \mathbb{P}\Big[\Lambda_{\text{max}} < \lambda_{\text{max}} \Big], \\
@@ -561,7 +561,7 @@ The cumulative distribution function of $\lambda_{\text{max}}$ is given by
     &= F_{\Lambda_1}^2(\lambda_{\text{max}}).
 \end{align}
 
-The probability density function can therefore be expressed as 
+The probability density function can therefore be expressed as
 
 \begin{align}
      f_{\Lambda_{\text{max}}} (\lambda_{\text{max}}) = 2f_{\Lambda_1}(\lambda_{\text{max}}) F_{\Lambda_1}(\lambda_{\text{max}}).
