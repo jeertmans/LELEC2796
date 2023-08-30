@@ -1,8 +1,8 @@
 \begin{tikzpicture}
     \node (rt) {$r(t)$};
-    
+
     \path (rt) -- ++(.8,0) coordinate (mrt);
-    
+
     \node[above right of=mrt, draw, minimum width=1.2cm, minimum height=1cm, node distance=2cm] (p1) {$p(-t)$};
     \node[right of=p1, node distance=2cm] (split1) {};
     \node[right of=split1, draw, minimum width=1.2cm, minimum height=1cm, node distance=2cm] (a1) {$a_k(m)$};
@@ -15,7 +15,7 @@
     \draw[->, thick] (up1) -- (mul1);
     \draw[dashed] ([shift={(-.2,-.8)}]p1.south west) rectangle ([shift={(+.3,+1)}]mul1.north east);
     \draw[<-,thick] (mul1) -- ++(0,-.7) node[below] {$\alpha_{k,1}^*$};
-    
+
     \node[below right of=mrt, draw, minimum width=1.2cm, minimum height=1cm, node distance=2cm] (pm) {$p(-t)$};
     \node[right of=pm, node distance=2cm] (splitm) {};
     \node[right of=splitm, draw, minimum width=1.2cm, minimum height=1cm, node distance=2cm] (am) {$a_k(m)$};
@@ -28,14 +28,14 @@
     \draw[->, thick] (upm) -- (mulm);
     \draw[dashed] ([shift={(-.2,-.8)}]pm.south west) rectangle ([shift={(+.3,+1)}]mulm.north east);
     \draw[<-,thick] (mulm) -- ++(0,-.7) node[below] {$\alpha_{k,m}^*$};
-    
+
     \path (mul1) -- ++(2,0) coordinate (X);
-    
+
     \node[circle,draw] (add) at (X |- rt) {$+$};
     \draw[->,thick] (add) -- ++(1,0);
-    
+
     \draw[->,thick] (mul1) -- ++(1,0) -- (add);
     \draw[->,thick] (mulm) -- ++(1,0) -- (add);
 
-    
+
 \end{tikzpicture}
