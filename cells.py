@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import Any, Optional
@@ -25,7 +27,20 @@ class Points:
     def __len__(self):
         return self.array.shape[0]
 
+    def __getitem__(self, item: Any) -> Points:
+        return Points(array=self.array[item])
+
+    @classmethod
+    def generate(cls, n: int) -> Points:
+        """
+        Generate n points using a random uniform distribution.
+        """
+        return Points(array=np.random.rand(n, 2) - np.array([.5, .5]))
+
     def draw(self, ax: Optional[plt.Axes] = None, *args, **kwargs) -> Any:
+        """
+        Draw the points on the given axes.
+        """
         if ax is None:
             ax = plt.gca()
         return ax.scatter(self.x, self.y, *args, **kwargs)
@@ -44,7 +59,7 @@ class Cell(ABC):
         pass
 
     @abstractmethod
-    def draw(self, ax: Optional[plt.Axes] = None, *args, **kwargs):
+    def draw(self, ax: Optional[plt.Axes] = None, *args, **kwargs) -> Any:
         """
         Draw the cell structure on the given axes.
         """
@@ -53,6 +68,9 @@ class Cell(ABC):
 
 @dataclass
 class Circle(Cell):
+    """
+    Circular cell.
+    """
     radius: float = 1.0
     center: np.ndarray = np.array([0.0, 0.0])
 
@@ -75,7 +93,7 @@ class Circle(Cell):
 
         return Points(array=xy[:n, :] + self.center)
 
-    def draw(self, ax: Optional[plt.Axes] = None, *args, fill=False, **kwargs):
+    def draw(self, ax: Optional[plt.Axes] = None, *args, fill=False, **kwargs) -> Any:
         if ax is None:
             ax = plt.gca()
         circle = plt.Circle(
@@ -86,6 +104,9 @@ class Circle(Cell):
 
 @dataclass
 class Hexagon(Cell):
+    """
+    Hexagonal cell.
+    """
     radius: float = 1.0
     center: np.ndarray = np.array([0.0, 0.0])
     rotation: float = 0.0
@@ -171,7 +192,7 @@ class Hexagon(Cell):
 
         return Points(array=xy[:n, :] + self.center)
 
-    def draw(self, ax: Optional[plt.Axes] = None, *args, fill=False, **kwargs):
+    def draw(self, ax: Optional[plt.Axes] = None, *args, fill=False, **kwargs) -> Any:
         if ax is None:
             ax = plt.gca()
         hexagon = plt.Polygon(self.corners_array, *args, fill=fill, **kwargs)
