@@ -26,7 +26,13 @@ jobs:
 
     - name: Copy files
       run: |
-        cp .pre-commit-config.yaml requirements.txt cells.py obstacles.py build/
+        cp ../.pre-commit-config.yaml \
+           ../.ruff.toml \
+           ../.isort.cfg \
+           requirements.txt \
+           cells.py \
+           obstacles.py \
+           build/
 
     - name: Process notebooks
       run: |

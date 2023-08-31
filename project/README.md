@@ -84,10 +84,29 @@ At the end of the project, we expect you to be able to:
 
 ## Deliverables {#deliverables}
 
-This project will be evaluated only at the end.
-We ask you to produce, by groups of 1, 2, or 3:
+This project will be evaluated twice: a **mid-term**
+evaluation and a **final** evaluation.
 
-+ a 15-20 minutes presentation, with the following contents:
+Groups can be more of 1, 2 or 3 people, depending on the
+number of students taking the class this year.
+
+### Mid-term evaluation
+
+After the 3 guided sessions, you will be asked to define a 
+study case. Once decided, you will have to book a meeting
+with your teaching assistant to present and validate you can
+work on your project.
+
+During this meeting, you will also **be evaluated** on the
+**3 guided sessions**. You need to bring your computer
+and show that you have completed each session. One (1)
+point will be granded per session, for a total of three (3).
+
+### Final evaluation
+
+The final examination constist in:
+
++ an 15-20 minutes oral presentation (/15), with the following contents:
   + an introduction to your study case;
   + the necessary mathematical details (e.g., a project about Ray Tracing
     might recall the foundamentals);
@@ -95,14 +114,25 @@ We ask you to produce, by groups of 1, 2, or 3:
   + a critical comparison with the scientific litterature;
   + some words of future work, the challenges you faced, and so on;
   + and a conclusion.
-+ a Git (public or private) repository with 
+  After your presentation, you will have some time to answer questions from
+    the teaching staff.
++ a Git (public or private) repository (/2) with 
   a documented procedure on how to obtain the same results as you did.
   We will give a special attention to:
   + a simple but complete installation and execution procedure;
   + and a clean code base.
++ an **optional** 3-4 pages scientific report describing your work in more
+  details. The goal is to teach you how to write a nice conference paper.
+  This report can bring you up to **3 bonus points**. The report should
+  by a two-columns report that uses the `IEEEtran` 
 
-After your presentation, you will have some time to answer questions from
-the teaching staff.
+---
+
+The grade  is computed as follows: **Sessions** + **Oral** + **Git** + **Report** = **Grade**/20.
+
+Therefore, the theoritical maximum for this project is therefore 23/20, and any bonus
+point can help you increase your average grade for this class.
+
 
 ## Tips for a good project
 
@@ -117,5 +147,28 @@ tools. Here are a few tips to help you producing a nice project:
    `.pre-commit-config.yaml`.
 3. Use [Zotero](https://www.zotero.org/), or equivalent, to organize your
    bibliography files. A must have for your Master's Thesis too.
+   See the [Zotero tips](#zotero-tips).
+
+## Tips for a good scientific report {#report-tips}
+
+
+## Tips for using Zotero {#zotero-tips}
+
+Zotero is a great tool in itself, but you can make it an even better tool
+with the following tips:
+
++ Add automatic web synchronization using your (free) UCLouvain WebDAV
+  so that you can access your bibliography from
+  different platforms (computers, phones, tablets, and so on). You have to
+  replace `username` with your UCLouvain username,
+  and the `u` the URL must be replaced by the first letter of your username.
+  ![Zotero WebDAV configuration](zotero-webdav.png){ width=256px }, 
++ Export your bibliography using Better BibTeX, not Better BibLaTeX!
+  Both formats are different and IEEE's template uses BibTeX.
++ Feel free to add plugins to you Zotero:
+  https://www.zotero.org/support/plugins. Below, you can see the add-ons I
+  use myself.
+  ![Zotero Add-ons](zotero-add-ons.png){ width=256px }
+
 
 [jupyter-lite-url]: https://eertmans.be/LELEC2796
