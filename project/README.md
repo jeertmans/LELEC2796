@@ -180,14 +180,16 @@ with the following tips:
   so that you can access your bibliography from
   different platforms (computers, phones, tablets, and so on). You have to
   replace `username` with your UCLouvain username,
-  and the `u` the URL must be replaced by the first letter of your username.
-  ![Zotero WebDAV configuration](zotero-webdav.png){ width=256px }, 
+  and the `u` the URL must be replaced by the first letter of your username,
+  
+  ![Zotero WebDAV configuration](zotero-webdav.png){ style="width: 70%; margin: auto;" }
 + Export your bibliography using Better BibTeX, not Better BibLaTeX!
   Both formats are different and IEEE's template uses BibTeX.
 + Feel free to add plugins to you Zotero:
   https://www.zotero.org/support/plugins. Below, you can see the add-ons I
   use myself.
-  ![Zotero Add-ons](zotero-add-ons.png){ width=256px }
+  
+  ![Zotero Add-ons](zotero-add-ons.png){ style="width: 70%; margin: auto;" }
 
 
 [jupyter-lite-url]: https://eertmans.be/LELEC2796
