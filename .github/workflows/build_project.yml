@@ -1,12 +1,17 @@
-name: Build student version
+name: Build Project Files
 
 on:
   push:
+    paths:
+      - "project/**"
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./exercises
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
@@ -21,12 +26,11 @@ jobs:
 
     - name: Copy files
       run: |
-        cp .pre-commit-config.yaml requirements.txt build/
+        cp .pre-commit-config.yaml requirements.txt cells.py obstacles.py build/
 
     - name: Process notebooks
       run: |
         pip install nbconvert
-        cp cells.py obstacles.py build/
         find -iname '*.ipynb' -printf '%P\n' | xargs -I {} jupyter nbconvert --clear-output --inplace "{}"
         find -iname '*.ipynb' -printf '%P\n' | xargs -I {} python process.py "{}" "build/{}"
 
@@ -36,6 +40,7 @@ jobs:
         entrypoint: /bin/sh
         args: >-
           -c "
+          cd project &&
           tlmgr update --self &&
           tlmgr install framed tcolorbox environ trimspaces listingsutf8 &&
           pandoc
@@ -52,7 +57,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: project-files
-        path: build
+        path: project/build
 
     - name: Install mamba
       uses: mamba-org/setup-micromamba@v1
@@ -70,7 +75,7 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v1
       with:
-        path: ./dist
+        path: project/dist
 
   deploy:
     needs: build
