@@ -69,7 +69,7 @@ jobs:
       uses: mamba-org/setup-micromamba@v1
       with:
         micromamba-version: 1.4.9-0
-        environment-file: build-environment.yml
+        environment-file: project/build-environment.yml
         cache-environment: true
 
     - name: Build the JupyterLite site
