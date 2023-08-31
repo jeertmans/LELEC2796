@@ -2,6 +2,7 @@ name: Build Exercise Sessions
 on:
   push:
     paths:
+      - ".github/workflows/build_exercises.yml"
       - "exercises/**"
   workflow_dispatch:
 
