@@ -1,4 +1,4 @@
-name: Build Exercice Sessions
+name: Build Exercise Sessions
 on:
   push:
     paths:
