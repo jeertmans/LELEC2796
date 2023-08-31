@@ -2,8 +2,8 @@ name: Build Exercise Sessions
 on:
   push:
     paths:
-      - ".github/workflows/build_exercises.yml"
-      - "exercises/**"
+    - .github/workflows/build_exercises.yml
+    - exercises/**
   workflow_dispatch:
 
 
@@ -16,22 +16,22 @@ jobs:
     steps:
     - name: Set up Git repository
       uses: actions/checkout@v2
-    
+
     - name: setup python
       uses: actions/setup-python@v2
       with:
         python-version: '3.10'
-    
+
     - name: Prepare TeX files
       run: |
         find -name 'session[0-9].tex' -printf '%P\n' | xargs -I {} python process.py "{}"
-    
+
     - name: Compile LaTeX document
       uses: xu-cheng/latex-action@v2
       with:
         latexmk_shell_escape: true
-        extra_system_packages: "py-pygments"
-        working_directory: "exercises"
+        extra_system_packages: py-pygments
+        working_directory: exercises
         root_file: |
           session1.tex
           session1_solution.tex
@@ -44,7 +44,7 @@ jobs:
           session5.tex
           session5_solution.tex
         continue_on_error: true
-    
+
     - name: Archive exercise files
       uses: actions/upload-artifact@v3
       with:
