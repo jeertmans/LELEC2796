@@ -101,6 +101,8 @@ During this meeting, you will also **be evaluated** on the
 **3 guided sessions**. You need to bring your computer
 and show that you have completed each session. One (1)
 point will be granded per session, for a total of three (3).
+You don't have to prepare anything specific, we will just
+verify that you understand the contents of each session.
 
 ### Final evaluation
 
@@ -124,7 +126,9 @@ The final examination constist in:
 + an **optional** 3-4 pages scientific report describing your work in more
   details. The goal is to teach you how to write a nice conference paper.
   This report can bring you up to **3 bonus points**. The report should
-  by a two-columns report that uses the `IEEEtran` 
+  by a two-columns report that uses the
+  [`IEEEtran` $\text{\LaTeX}$ class](https://ctan.org/pkg/ieeetran).
+  See the [report tips](#report-tips).
 
 ---
 
@@ -133,24 +137,39 @@ The grade  is computed as follows: **Sessions** + **Oral** + **Git** + **Report*
 Therefore, the theoritical maximum for this project is therefore 23/20, and any bonus
 point can help you increase your average grade for this class.
 
-
 ## Tips for a good project
 
 Collaborating on code project can be difficult if you are not using the right
 tools. Here are a few tips to help you producing a nice project:
 
-1. Use Git. First, because we reward this in the grades, but most
+1. use Git. First, because we reward this in the grades, but most
    importantly because this is a must-use when working on programming projects!
-2. For a clean codebase, use code formatters and code linters. For this,
+2. for a clean codebase, use code formatters and code linters. For this,
    we recommend to use [pre-commit](https://pre-commit.com/), for which we
    already provide a comprehensive configuration file
    `.pre-commit-config.yaml`.
-3. Use [Zotero](https://www.zotero.org/), or equivalent, to organize your
+3. use [Zotero](https://www.zotero.org/), or equivalent, to organize your
    bibliography files. A must have for your Master's Thesis too.
    See the [Zotero tips](#zotero-tips).
 
 ## Tips for a good scientific report {#report-tips}
 
+Here are a few, but **very important** (to me) tips:
+
+1. write your report in $\text{\LaTeX{}}$, and [Overleaf](overleaf.com) is a nice online
+  platform if you don't want to install a $\text{\LaTeX{}}$ compiler on your computer;
+2. export all your images in `.pdf` format, because it is a vector format and not a raster one;
+3. use the `siunitx` package for **all** your units,
+  see [this tutorial](https://www.dickimaw-books.com/latex/thesis/html/siunitx.html);
+4. label all your axes, put units in them, and write an appropriate caption.
+5. if you are motivated enough, you can do all your plots with [Pgfplots](https://fr.overleaf.com/learn/latex/Pgfplots_package) and all other schemas with [TikZ](https://fr.overleaf.com/learn/latex/TikZ_package) for a nicer integration with $\text{\LaTeX{}}$;
+6. read the
+   [How to Use the IEEEtran $\text{\LaTeX{}}$ Class](https://mirror.lyrahosting.com/CTAN/macros/latex/contrib/IEEEtran/IEEEtran_HOWTO.pdf)
+   paper for many useful tips on this subject;
+6. and do not hesitate to take some inspiration from the literature (for the style)!
+
+You are not obliged to follow them, but doing so usually results in a better
+looking document.
 
 ## Tips for using Zotero {#zotero-tips}
 
