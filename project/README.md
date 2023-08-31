@@ -87,7 +87,7 @@ At the end of the project, we expect you to be able to:
 This project will be evaluated twice: a **mid-term**
 evaluation and a **final** evaluation.
 
-Groups can be more of 1, 2 or 3 people, depending on the
+Groups can be made of 1, 2 or 3 people, depending on the
 number of students taking the class this year.
 
 ### Mid-term evaluation
