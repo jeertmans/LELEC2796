@@ -134,8 +134,8 @@ The final examination constist in:
 
 The grade  is computed as follows: **Sessions** + **Oral** + **Git** + **Report** = **Grade**/20.
 
-Therefore, the theoritical maximum for this project is therefore 23/20, and any bonus
-point can help you increase your average grade for this class.
+Therefore, the theoritical maximum for this project is 23/20, and any
+point above 20 can help you increase your average grade for this class.
 
 ## Tips for a good project
 
@@ -176,20 +176,19 @@ looking document.
 Zotero is a great tool in itself, but you can make it an even better tool
 with the following tips:
 
-+ Add automatic web synchronization using your (free) UCLouvain WebDAV
++ add automatic web synchronization using your (free) UCLouvain WebDAV
   so that you can access your bibliography from
   different platforms (computers, phones, tablets, and so on). You have to
   replace `username` with your UCLouvain username,
   and the `u` the URL must be replaced by the first letter of your username,
-  
-  ![Zotero WebDAV configuration](zotero-webdav.png){ style="width: 70%; margin: auto;" }
-+ Export your bibliography using Better BibTeX, not Better BibLaTeX!
-  Both formats are different and IEEE's template uses BibTeX.
-+ Feel free to add plugins to you Zotero:
-  https://www.zotero.org/support/plugins. Below, you can see the add-ons I
-  use myself.
-  
-  ![Zotero Add-ons](zotero-add-ons.png){ style="width: 70%; margin: auto;" }
+  see Figure \ref{fig:webdav},
++ export your bibliography using Better BibTeX, not Better BibLaTeX!
+  Both formats are different and IEEE's template uses BibTeX,
++ and feel free to add plugins to you Zotero:
+  https://www.zotero.org/support/plugins.
+  On Figure \ref{fig:add-ons}, you can see the add-ons I use myself.
 
+![Zotero WebDAV configuration.\label{fig:webdav}](zotero-webdav.png){ width=50% }
 
+![Zotero Add-ons.\label{fig:add-ons}](zotero-add-ons.png){ width=50% }
 [jupyter-lite-url]: https://eertmans.be/LELEC2796
