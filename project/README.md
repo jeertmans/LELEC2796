@@ -191,4 +191,5 @@ with the following tips:
 ![Zotero WebDAV configuration.\label{fig:webdav}](zotero-webdav.png){ width=50% }
 
 ![Zotero Add-ons.\label{fig:add-ons}](zotero-add-ons.png){ width=50% }
+
 [jupyter-lite-url]: https://eertmans.be/LELEC2796
