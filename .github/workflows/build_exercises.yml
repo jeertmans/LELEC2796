@@ -2,7 +2,7 @@ name: Build Exercice Sessions
 on:
   push:
     paths:
-      - "./exercises/**.*"
+      - "exercises/**"
   workflow_dispatch:
 
 
