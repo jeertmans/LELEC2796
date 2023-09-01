@@ -92,7 +92,7 @@ number of students taking the class this year.
 
 ### Mid-term evaluation
 
-After the 3 guided sessions, you will be asked to define a 
+After the 3 guided sessions, you will be asked to define a
 study case. Once decided, you will have to book a meeting
 with your teaching assistant to present and validate you can
 work on your project.
@@ -118,7 +118,7 @@ The final examination constist in:
   + and a conclusion.
   After your presentation, you will have some time to answer questions from
     the teaching staff.
-+ a Git (public or private) repository (/2) with 
++ a Git (public or private) repository (/2) with
   a documented procedure on how to obtain the same results as you did.
   We will give a special attention to:
   + a simple but complete installation and execution procedure;
