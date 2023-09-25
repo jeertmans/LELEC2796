@@ -41,6 +41,7 @@ jobs:
     - name: Render slides
       run: |
         jupyter nbconvert slides.ipynb --to slides --embed-images
+        rm slides.ipynb
         mv slides.slides.html build/slides.html
 
     - name: Process notebooks
