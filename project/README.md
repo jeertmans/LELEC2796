@@ -14,8 +14,8 @@ and can be reached via email at
 ## Project's structure
 
 - First, 3 guided sessions (2 hours each);
-- Then, 3 consultancy sessions;
-- And, finally, one oral examination, see the [deliverables](#deliverables).
+- then, 3 consultancy sessions;
+- and, finally, one oral examination, see the [deliverables](#deliverables).
 
 After the guided sessions, you will be asked to define a study case on
 which you will work by groups. A table with ideas will be provided
@@ -78,7 +78,7 @@ At the end of the project, we expect you to be able to:
 
 + simulate a basic MIMO scenario and evaluate some performance
   metrics from it;
-+ understand you model parameters and hypotheses
++ understand you model parameters and hypotheses;
 + find models in the literature and criticise them;
 + and deliver reproducible results in a documented Git.
 
@@ -113,7 +113,7 @@ The final examination constist in:
   + the necessary mathematical details (e.g., a project about Ray Tracing
     might recall the foundamentals);
   + your main contribution(s) and the results;
-  + a critical comparison with the scientific litterature;
+  + a critical comparison with the scientific literature;
   + some words of future work, the challenges you faced, and so on;
   + and a conclusion.
   After your presentation, you will have some time to answer questions from

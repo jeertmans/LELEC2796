@@ -35,6 +35,11 @@ jobs:
            obstacles.py \
            build/
 
+    - name: Render slides
+      run: |
+        jupyter nbconvert slides.ipynb --to slides --embed-images
+        mv slides.slides.html build/slides.html
+
     - name: Process notebooks
       run: |
         pip install nbconvert
