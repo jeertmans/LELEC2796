@@ -35,6 +35,9 @@ jobs:
            obstacles.py \
            build/
 
+    - name: Install nbconvert
+      run: pip install nbconvert
+
     - name: Render slides
       run: |
         jupyter nbconvert slides.ipynb --to slides --embed-images
@@ -42,7 +45,6 @@ jobs:
 
     - name: Process notebooks
       run: |
-        pip install nbconvert
         find -iname '*.ipynb' -printf '%P\n' | xargs -I {} jupyter nbconvert --clear-output --inplace "{}"
         find -iname '*.ipynb' -printf '%P\n' | xargs -I {} python process.py "{}" "build/{}"
 
