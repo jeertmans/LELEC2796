@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any, Optional
 
 import matplotlib.pyplot as plt
@@ -73,7 +73,7 @@ class Circle(Cell):
     """
 
     radius: float = 1.0
-    center: np.ndarray = np.array([0.0, 0.0])
+    center: np.ndarray = field(default_factory=lambda: np.array([0.0, 0.0]))
 
     def __post_init__(self):
         self.center = np.asarray(self.center).reshape(1, 2)
@@ -110,7 +110,7 @@ class Hexagon(Cell):
     """
 
     radius: float = 1.0
-    center: np.ndarray = np.array([0.0, 0.0])
+    center: np.ndarray = field(default_factory=lambda: np.array([0.0, 0.0]))
     rotation: float = 0.0
 
     def __post_init__(self):

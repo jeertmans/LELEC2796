@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any, Optional
 
 import matplotlib.pyplot as plt
@@ -39,8 +39,8 @@ class CircularObstacles(Obstacles):
     Circular cell.
     """
 
-    radii: float = np.array([0.1])
-    centers: np.ndarray = np.array([0.0, 0.0])
+    radii: float = field(default_factory=lambda: np.array([0.1]))
+    centers: np.ndarray = field(default_factory=lambda: np.array([0.0, 0.0]))
 
     def __post_init__(self):
         self.radii = np.asarray(self.radii).reshape(-1)
