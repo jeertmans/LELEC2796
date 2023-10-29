@@ -22,3 +22,5 @@ _output/
 *.pdf
 
 exercises/*_solution.tex
+
+project/dist/
