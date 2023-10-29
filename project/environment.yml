@@ -1,9 +1,9 @@
 name: xeus-python-kernel
 channels:
 - https://repo.mamba.pm/emscripten-forge
-- conda-forge
+- https://repo.mamba.pm/conda-forge
 dependencies:
 - ipympl
 - matplotlib>=3,<4
-- numpy==1.25.2
+- numpy>=1.24,<=1.25
 - scipy==1.11.1
