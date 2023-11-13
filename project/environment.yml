@@ -6,4 +6,5 @@ dependencies:
 - ipympl
 - matplotlib>=3,<4
 - numpy>=1.24,<=1.25
+- python==3.11
 - scipy==1.11.1
