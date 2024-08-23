@@ -4,11 +4,13 @@ In this document, you will find all important information about how to work
 with the provided files, and what you need to produce.
 
 The webpage for this class is accessible here:
-[LELEC2796](https://uclouvain.be/en-cours-2023-lelec2796).
+[LELEC2796](https://uclouvain.be/en-cours-2024-lelec2796).
 
-The teaching assistant for this year is
-[Jérome Eertmans](https://uclouvain.be/fr/repertoires/jerome.eertmans)
+The teaching assistants for this year are
+[Baptiste Sambon](https://uclouvain.be/fr/repertoires/baptiste.sambon) (*main*) and
+[Jérome Eertmans](https://uclouvain.be/fr/repertoires/jerome.eertmans),
 and can be reached via email at
+[baptiste.sambon@uclouvain.be](mailto:baptiste.sambon@uclouvain.be) and
 [jerome.eertmans@uclouvain.be](mailto:jerome.eertmans@uclouvain.be).
 
 ## Project's structure
