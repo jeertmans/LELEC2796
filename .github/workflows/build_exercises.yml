@@ -5,6 +5,8 @@ on:
     - .github/workflows/build_exercises.yml
     - exercises/**
   workflow_dispatch:
+  schedule:
+  - cron: "0 0 1 * *"
 
 
 jobs:
